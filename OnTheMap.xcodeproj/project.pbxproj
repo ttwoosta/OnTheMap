@@ -14,6 +14,9 @@
 		06DBCAC71B71978D00ED6895 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06DBCAC61B71978D00ED6895 /* Images.xcassets */; };
 		06DBCACA1B71978D00ED6895 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06DBCAC81B71978D00ED6895 /* LaunchScreen.xib */; };
 		06DBCAD61B71978D00ED6895 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAD51B71978D00ED6895 /* OnTheMapTests.swift */; };
+		06DBCAE01B72174600ED6895 /* get-student-locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 06DBCADF1B72174600ED6895 /* get-student-locations.json */; };
+		06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */; };
+		06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB151B721BD500ED6895 /* UDLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		06DBCACF1B71978D00ED6895 /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06DBCAD41B71978D00ED6895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06DBCAD51B71978D00ED6895 /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
+		06DBCADF1B72174600ED6895 /* get-student-locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "get-student-locations.json"; sourceTree = "<group>"; };
+		06DBCB131B7219E100ED6895 /* OnTheMap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnTheMap.xcdatamodel; sourceTree = "<group>"; };
+		06DBCB151B721BD500ED6895 /* UDLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				06DBCABD1B71978D00ED6895 /* AppDelegate.swift */,
+				06DBCB151B721BD500ED6895 /* UDLocation.swift */,
+				06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */,
 				06DBCABF1B71978D00ED6895 /* FirstViewController.swift */,
 				06DBCAC11B71978D00ED6895 /* SecondViewController.swift */,
 				06DBCAC31B71978D00ED6895 /* Main.storyboard */,
@@ -101,6 +109,7 @@
 		06DBCAD21B71978D00ED6895 /* OnTheMapTests */ = {
 			isa = PBXGroup;
 			children = (
+				06DBCADF1B72174600ED6895 /* get-student-locations.json */,
 				06DBCAD51B71978D00ED6895 /* OnTheMapTests.swift */,
 				06DBCAD31B71978D00ED6895 /* Supporting Files */,
 			);
@@ -205,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06DBCAE01B72174600ED6895 /* get-student-locations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +226,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */,
+				06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */,
 				06DBCABE1B71978D00ED6895 /* AppDelegate.swift in Sources */,
+				06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */,
 				06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +427,7 @@
 				06DBCADB1B71978D00ED6895 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		06DBCADC1B71978D00ED6895 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -423,8 +436,22 @@
 				06DBCADE1B71978D00ED6895 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				06DBCB131B7219E100ED6895 /* OnTheMap.xcdatamodel */,
+			);
+			currentVersion = 06DBCB131B7219E100ED6895 /* OnTheMap.xcdatamodel */;
+			path = OnTheMap.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 06DBCAB01B71978D00ED6895 /* Project object */;
 }
