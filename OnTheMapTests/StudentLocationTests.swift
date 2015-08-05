@@ -13,13 +13,17 @@ import OnTheMap
 
 class OnTheMapTests: XCTestCase {
     
-    var appDelegate: AppDelegate!
+    var appDelegate: UDAppDelegate!
     var moc: NSManagedObjectContext!
+    
+    //////////////////////////////////
+    // override methods
+    /////////////////////////////////
     
     override func setUp() {
         super.setUp()
         // get app delegate from current application
-        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate = UIApplication.sharedApplication().delegate as! UDAppDelegate
         XCTAssertNotNil(appDelegate, "Cannot get application delegate")
         
         // managed object context
@@ -34,6 +38,10 @@ class OnTheMapTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    //////////////////////////////////
+    // Fixture
+    /////////////////////////////////
     
     func getStudentLocations() -> [String: AnyObject]! {
         // // create bundle and get fixture
@@ -66,6 +74,10 @@ class OnTheMapTests: XCTestCase {
         
         return sl
     }
+    
+    //////////////////////////////////
+    // Tests
+    /////////////////////////////////
     
     func test_student_location() {
         let fixture = getStudentLocations()
@@ -120,7 +132,6 @@ class OnTheMapTests: XCTestCase {
         XCTAssertNotNil(ust.updatedAt)
         
     }
-    
     
     func test_student_locations_multiple() {
         let fixture = getStudentLocations()

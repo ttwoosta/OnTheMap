@@ -10,11 +10,14 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-public class AppDelegate: UIResponder, UIApplicationDelegate {
+public class UDAppDelegate: UIResponder, UIApplicationDelegate {
 
     public var window: UIWindow?
 
-
+    //////////////////////////////////
+    // override methods
+    /////////////////////////////////
+    
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06DBCABE1B71978D00ED6895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABD1B71978D00ED6895 /* AppDelegate.swift */; };
+		06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */; };
 		06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABF1B71978D00ED6895 /* FirstViewController.swift */; };
 		06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAC11B71978D00ED6895 /* SecondViewController.swift */; };
 		06DBCAC51B71978D00ED6895 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06DBCAC31B71978D00ED6895 /* Main.storyboard */; };
 		06DBCAC71B71978D00ED6895 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06DBCAC61B71978D00ED6895 /* Images.xcassets */; };
 		06DBCACA1B71978D00ED6895 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06DBCAC81B71978D00ED6895 /* LaunchScreen.xib */; };
-		06DBCAD61B71978D00ED6895 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAD51B71978D00ED6895 /* OnTheMapTests.swift */; };
+		06DBCAD61B71978D00ED6895 /* StudentLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAD51B71978D00ED6895 /* StudentLocationTests.swift */; };
 		06DBCAE01B72174600ED6895 /* get-student-locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 06DBCADF1B72174600ED6895 /* get-student-locations.json */; };
 		06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */; };
 		06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB151B721BD500ED6895 /* UDLocation.swift */; };
@@ -32,7 +32,7 @@
 /* Begin PBXFileReference section */
 		06DBCAB81B71978D00ED6895 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06DBCABC1B71978D00ED6895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		06DBCABD1B71978D00ED6895 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDAppDelegate.swift; sourceTree = "<group>"; };
 		06DBCABF1B71978D00ED6895 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		06DBCAC11B71978D00ED6895 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		06DBCAC41B71978D00ED6895 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 		06DBCAC91B71978D00ED6895 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		06DBCACF1B71978D00ED6895 /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06DBCAD41B71978D00ED6895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		06DBCAD51B71978D00ED6895 /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
+		06DBCAD51B71978D00ED6895 /* StudentLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocationTests.swift; sourceTree = "<group>"; };
 		06DBCADF1B72174600ED6895 /* get-student-locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "get-student-locations.json"; sourceTree = "<group>"; };
 		06DBCB131B7219E100ED6895 /* OnTheMap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnTheMap.xcdatamodel; sourceTree = "<group>"; };
 		06DBCB151B721BD500ED6895 /* UDLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLocation.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		06DBCABA1B71978D00ED6895 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
-				06DBCABD1B71978D00ED6895 /* AppDelegate.swift */,
+				06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */,
 				06DBCB151B721BD500ED6895 /* UDLocation.swift */,
 				06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */,
 				06DBCABF1B71978D00ED6895 /* FirstViewController.swift */,
@@ -110,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				06DBCADF1B72174600ED6895 /* get-student-locations.json */,
-				06DBCAD51B71978D00ED6895 /* OnTheMapTests.swift */,
+				06DBCAD51B71978D00ED6895 /* StudentLocationTests.swift */,
 				06DBCAD31B71978D00ED6895 /* Supporting Files */,
 			);
 			path = OnTheMapTests;
@@ -227,7 +227,7 @@
 			files = (
 				06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */,
 				06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */,
-				06DBCABE1B71978D00ED6895 /* AppDelegate.swift in Sources */,
+				06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */,
 				06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */,
 				06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */,
 			);
@@ -237,7 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06DBCAD61B71978D00ED6895 /* OnTheMapTests.swift in Sources */,
+				06DBCAD61B71978D00ED6895 /* StudentLocationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

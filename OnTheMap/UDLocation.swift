@@ -24,41 +24,11 @@ public class UDLocation: NSManagedObject {
         static let updatedAt: String = "updatedAt"
     }
     
-    static let dateFormmater2 = NSDateFormatter()
-    public override class func initialize() {
-        dateFormmater2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        super.initialize()
-    }
     
-    public class func locationsFromResults(results: [[String: AnyObject]], moc: NSManagedObjectContext) -> [UDLocation] {
-        
-        // Location object entity
-        let entity = NSEntityDescription.entityForName("UDLocation", inManagedObjectContext: moc)!
-        
-        // returned locations array
-        var locations = [UDLocation]()
-        
-        for d in results {
-            var loc = UDLocation(entity: entity, insertIntoManagedObjectContext: moc)
-            loc.decodeWith(d)
-            locations.append(loc)
-        }
-        
-        return locations
-    }
+    //////////////////////////////////
+    // Properties
+    /////////////////////////////////
     
-    class func dateFormmater() -> NSDateFormatter {
-        struct Static {
-            static var onceToken: dispatch_once_t = 0
-            static var instance: NSDateFormatter? = nil
-        }
-        dispatch_once(&Static.onceToken) {
-            Static.instance = NSDateFormatter()
-            Static.instance?.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        }
-        return Static.instance!
-    }
-
     @NSManaged public var objectId: String
     @NSManaged public var uniqueKey: String
     @NSManaged public var firstName: String
@@ -76,6 +46,32 @@ public class UDLocation: NSManagedObject {
             return NSURL(string: mediaURLString)!
         }
     }
+    
+    //////////////////////////////////
+    // Date formmater
+    /////////////////////////////////
+    
+    static let dateFormmater2 = NSDateFormatter()
+    public override class func initialize() {
+        dateFormmater2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        super.initialize()
+    }
+    
+    class func dateFormmater() -> NSDateFormatter {
+        struct Static {
+            static var onceToken: dispatch_once_t = 0
+            static var instance: NSDateFormatter? = nil
+        }
+        dispatch_once(&Static.onceToken) {
+            Static.instance = NSDateFormatter()
+            Static.instance?.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        }
+        return Static.instance!
+    }
+    
+    //////////////////////////////////
+    // Decode method
+    /////////////////////////////////
     
     public func decodeWith(dictionary: [String: AnyObject]) {
         firstName = dictionary[JSONKeys.firstName] as! String
@@ -102,5 +98,30 @@ public class UDLocation: NSManagedObject {
             updatedAt = dateFormmater.dateFromString(updated)!
         }
     }
+    
+    public class func locationsFromResults(results: [[String: AnyObject]], moc: NSManagedObjectContext) -> [UDLocation] {
+        
+        // Location object entity
+        let entity = NSEntityDescription.entityForName("UDLocation", inManagedObjectContext: moc)!
+        
+        // returned locations array
+        var locations = [UDLocation]()
+        
+        for d in results {
+            var loc = UDLocation(entity: entity, insertIntoManagedObjectContext: moc)
+            loc.decodeWith(d)
+            locations.append(loc)
+        }
+        
+        return locations
+    }
+    
+    
+
+    
+    
+    
+    
+    
 
 }
