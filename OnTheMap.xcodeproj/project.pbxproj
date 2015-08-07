@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		069EC6FE1B7401C9008F7A7E /* UDLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC6FD1B7401C9008F7A7E /* UDLoginVC.swift */; };
+		069EC6FF1B740960008F7A7E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DBCB2A1B73F3A700ED6895 /* FBSDKLoginKit.framework */; };
+		069EC7001B740962008F7A7E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DBCB281B73F20800ED6895 /* FBSDKCoreKit.framework */; };
+		069EC7021B741FC1008F7A7E /* UDSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7011B741FC1008F7A7E /* UDSessionTests.swift */; };
+		069EC7041B742CDD008F7A7E /* BaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7031B742CDD008F7A7E /* BaseClient.swift */; };
+		069EC7061B742D61008F7A7E /* UDParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7051B742D61008F7A7E /* UDParseClient.swift */; };
+		069EC7081B742E3D008F7A7E /* UDParseClient+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7071B742E3D008F7A7E /* UDParseClient+Constants.swift */; };
+		069EC70A1B742F83008F7A7E /* ParseClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7091B742F83008F7A7E /* ParseClientTests.swift */; };
+		069EC70C1B74360F008F7A7E /* UDClient+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC70B1B74360F008F7A7E /* UDClient+Convenience.swift */; };
 		06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */; };
 		06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABF1B71978D00ED6895 /* FirstViewController.swift */; };
 		06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAC11B71978D00ED6895 /* SecondViewController.swift */; };
@@ -18,10 +27,10 @@
 		06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */; };
 		06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB151B721BD500ED6895 /* UDLocation.swift */; };
 		06DBCB1A1B72860500ED6895 /* UDClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB191B72860500ED6895 /* UDClient.swift */; };
-		06DBCB1C1B72873C00ED6895 /* UDClient+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB1B1B72873C00ED6895 /* UDClient+Helpers.swift */; };
 		06DBCB1E1B7287AC00ED6895 /* UDClient+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB1D1B7287AC00ED6895 /* UDClient+Constants.swift */; };
-		06DBCB201B7299EB00ED6895 /* UDClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB1F1B7299EB00ED6895 /* UDClientTests.swift */; };
-		06DBCB221B73B4FC00ED6895 /* UDClient+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB211B73B4FC00ED6895 /* UDClient+Convenience.swift */; };
+		06DBCB201B7299EB00ED6895 /* BaseClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB1F1B7299EB00ED6895 /* BaseClientTests.swift */; };
+		06DBCB291B73F20800ED6895 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DBCB281B73F20800ED6895 /* FBSDKCoreKit.framework */; };
+		06DBCB2B1B73F3A700ED6895 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DBCB2A1B73F3A700ED6895 /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		069EC6FD1B7401C9008F7A7E /* UDLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLoginVC.swift; sourceTree = "<group>"; };
+		069EC7011B741FC1008F7A7E /* UDSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDSessionTests.swift; sourceTree = "<group>"; };
+		069EC7031B742CDD008F7A7E /* BaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseClient.swift; sourceTree = "<group>"; };
+		069EC7051B742D61008F7A7E /* UDParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDParseClient.swift; sourceTree = "<group>"; };
+		069EC7071B742E3D008F7A7E /* UDParseClient+Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDParseClient+Constants.swift"; sourceTree = "<group>"; };
+		069EC7091B742F83008F7A7E /* ParseClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClientTests.swift; sourceTree = "<group>"; };
+		069EC70B1B74360F008F7A7E /* UDClient+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDClient+Convenience.swift"; sourceTree = "<group>"; };
 		06DBCAB81B71978D00ED6895 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06DBCABC1B71978D00ED6895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDAppDelegate.swift; sourceTree = "<group>"; };
@@ -50,10 +66,10 @@
 		06DBCB131B7219E100ED6895 /* OnTheMap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnTheMap.xcdatamodel; sourceTree = "<group>"; };
 		06DBCB151B721BD500ED6895 /* UDLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLocation.swift; sourceTree = "<group>"; };
 		06DBCB191B72860500ED6895 /* UDClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDClient.swift; sourceTree = "<group>"; };
-		06DBCB1B1B72873C00ED6895 /* UDClient+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDClient+Helpers.swift"; sourceTree = "<group>"; };
 		06DBCB1D1B7287AC00ED6895 /* UDClient+Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDClient+Constants.swift"; sourceTree = "<group>"; };
-		06DBCB1F1B7299EB00ED6895 /* UDClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDClientTests.swift; sourceTree = "<group>"; };
-		06DBCB211B73B4FC00ED6895 /* UDClient+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDClient+Convenience.swift"; sourceTree = "<group>"; };
+		06DBCB1F1B7299EB00ED6895 /* BaseClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseClientTests.swift; sourceTree = "<group>"; };
+		06DBCB281B73F20800ED6895 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		06DBCB2A1B73F3A700ED6895 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06DBCB2B1B73F3A700ED6895 /* FBSDKLoginKit.framework in Frameworks */,
+				06DBCB291B73F20800ED6895 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +86,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				069EC6FF1B740960008F7A7E /* FBSDKLoginKit.framework in Frameworks */,
+				069EC7001B740962008F7A7E /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,13 +115,18 @@
 		06DBCABA1B71978D00ED6895 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				06DBCB2A1B73F3A700ED6895 /* FBSDKLoginKit.framework */,
+				06DBCB281B73F20800ED6895 /* FBSDKCoreKit.framework */,
 				06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */,
 				06DBCB151B721BD500ED6895 /* UDLocation.swift */,
 				06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */,
+				069EC7031B742CDD008F7A7E /* BaseClient.swift */,
+				069EC7051B742D61008F7A7E /* UDParseClient.swift */,
+				069EC7071B742E3D008F7A7E /* UDParseClient+Constants.swift */,
 				06DBCB191B72860500ED6895 /* UDClient.swift */,
-				06DBCB211B73B4FC00ED6895 /* UDClient+Convenience.swift */,
-				06DBCB1B1B72873C00ED6895 /* UDClient+Helpers.swift */,
+				069EC70B1B74360F008F7A7E /* UDClient+Convenience.swift */,
 				06DBCB1D1B7287AC00ED6895 /* UDClient+Constants.swift */,
+				069EC6FD1B7401C9008F7A7E /* UDLoginVC.swift */,
 				06DBCABF1B71978D00ED6895 /* FirstViewController.swift */,
 				06DBCAC11B71978D00ED6895 /* SecondViewController.swift */,
 				06DBCAC31B71978D00ED6895 /* Main.storyboard */,
@@ -125,8 +150,10 @@
 			children = (
 				06DBCADF1B72174600ED6895 /* get-student-locations.json */,
 				06DBCAD51B71978D00ED6895 /* StudentLocationTests.swift */,
+				06DBCB1F1B7299EB00ED6895 /* BaseClientTests.swift */,
+				069EC7091B742F83008F7A7E /* ParseClientTests.swift */,
+				069EC7011B741FC1008F7A7E /* UDSessionTests.swift */,
 				06DBCAD31B71978D00ED6895 /* Supporting Files */,
-				06DBCB1F1B7299EB00ED6895 /* UDClientTests.swift */,
 			);
 			path = OnTheMapTests;
 			sourceTree = "<group>";
@@ -240,14 +267,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06DBCB1C1B72873C00ED6895 /* UDClient+Helpers.swift in Sources */,
+				069EC7061B742D61008F7A7E /* UDParseClient.swift in Sources */,
+				069EC70C1B74360F008F7A7E /* UDClient+Convenience.swift in Sources */,
 				06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */,
 				06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */,
 				06DBCB1E1B7287AC00ED6895 /* UDClient+Constants.swift in Sources */,
+				069EC7041B742CDD008F7A7E /* BaseClient.swift in Sources */,
 				06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */,
+				069EC7081B742E3D008F7A7E /* UDParseClient+Constants.swift in Sources */,
+				069EC6FE1B7401C9008F7A7E /* UDLoginVC.swift in Sources */,
 				06DBCB1A1B72860500ED6895 /* UDClient.swift in Sources */,
 				06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */,
-				06DBCB221B73B4FC00ED6895 /* UDClient+Convenience.swift in Sources */,
 				06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,7 +287,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				06DBCAD61B71978D00ED6895 /* StudentLocationTests.swift in Sources */,
-				06DBCB201B7299EB00ED6895 /* UDClientTests.swift in Sources */,
+				06DBCB201B7299EB00ED6895 /* BaseClientTests.swift in Sources */,
+				069EC70A1B742F83008F7A7E /* ParseClientTests.swift in Sources */,
+				069EC7021B741FC1008F7A7E /* UDSessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +441,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					/Users/tutong/Documents/FacebookSDK,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -428,6 +461,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					/Users/tutong/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = OnTheMapTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

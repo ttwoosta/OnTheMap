@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ssp-9h-o6V">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -83,6 +83,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
+        </scene>
+        <!--LoginVC-->
+        <scene sceneID="zWf-dC-KZ1">
+            <objects>
+                <viewController id="ssp-9h-o6V" customClass="UDLoginVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BDH-1k-Q3g"/>
+                        <viewControllerLayoutGuide type="bottom" id="uK5-pK-qqg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="B0t-Wx-OLP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ezF-qP-Y0o" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="205" y="278" width="190" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="QRK-Ax-cl7"/>
+                                    <constraint firstAttribute="width" constant="190" id="y3m-nY-t6e"/>
+                                </constraints>
+                                <state key="normal" title="Facebook"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="ezF-qP-Y0o" secondAttribute="centerY" id="lL5-0G-OSi"/>
+                            <constraint firstAttribute="centerX" secondItem="ezF-qP-Y0o" secondAttribute="centerX" id="pNV-vc-rkX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnFacebook" destination="ezF-qP-Y0o" id="6oP-aF-qpD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="95U-SE-oBe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-715" y="0.0"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

@@ -1,14 +1,18 @@
 //
-//  UDClient+Helper.swift
+//  BaseClient.swift
 //  OnTheMap
 //
-//  Created by Tu Tong on 8/5/15.
+//  Created by Tu Tong on 8/6/15.
 //  Copyright (c) 2015 Tu Tong. All rights reserved.
 //
 
 import UIKit
 
-extension UDClient {
+public class BaseClient {
+    
+    public init() {
+
+    }
     
     public class func subtituteKeyInMethod(method: String, key: String, value: String) -> String? {
         if method.rangeOfString("{\(key)}") != nil {
@@ -78,4 +82,5 @@ extension UDClient {
         
         return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
     }
+    
 }

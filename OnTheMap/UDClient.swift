@@ -9,10 +9,13 @@
 import Foundation
 import UIKit
 
-public class UDClient {
+public class UDClient: BaseClient {
     
     // shared session
     var session: NSURLSession
+    
+    public var userID: String!
+    public var sessionID: String!
     
     public class func sharedInstance() -> UDClient {
         struct Singleton {
@@ -21,18 +24,31 @@ public class UDClient {
         return Singleton.sharedInstance
     }
     
-    init() {
+    override init() {
         session = NSURLSession.sharedSession()
+        super.init()
     }
     
-    public func taskForPOSTMethod(classes: String, parameters: [String: AnyObject]!, jsonBody: [String: AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask! {
+    //////////////////////////////////
+    // Udacity API
+    /////////////////////////////////
+    
+    public func taskForGETMethod(method: String, parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
         
-        let URLString = ParseConstants.Endpoint + classes + UDClient.escapedParameters(parameters)
+        let URLString = Constants.Endpoint + method + UDClient.escapedParameters(parameters)
+        let URL = NSURL(string: URLString)!
+        let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
+        URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        return taskForRequest(URLRequest, completionHandler: completionHandler)
+    }
+    
+    public func taskForPOSTMethod(method: String, parameters: [String: AnyObject]!, jsonBody: [String: AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask! {
+        
+        let URLString = Constants.Endpoint + method + UDClient.escapedParameters(parameters)
         let URL = NSURL(string: URLString)!
         let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
         URLRequest.HTTPMethod = "POST"
-        URLRequest.addValue(ParseConstants.ApplicationID, forHTTPHeaderField: ParseRequestHeaderKeys.ApplicationID)
-        URLRequest.addValue(ParseConstants.APIKey, forHTTPHeaderField: ParseRequestHeaderKeys.APIKey)
         URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         URLRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -50,42 +66,41 @@ public class UDClient {
         return taskForRequest(URLRequest, completionHandler: completionHandler)
     }
     
-    public func taskForPUTMethod(classes: String, parameters: [String: AnyObject]!, jsonBody: [String: AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask! {
+    public func taskForDELETEMethod(method: String, parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask! {
         
-        let task = taskForPOSTMethod(classes, parameters: parameters, jsonBody: jsonBody, completionHandler: completionHandler)
-        let URLRequest = task.originalRequest as! NSMutableURLRequest
-        URLRequest.HTTPMethod = "PUT"
-        
-        return task
-    }
-    
-    public func taskForGETMethod(classes: String, parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
-        
-        let URLString = ParseConstants.Endpoint + classes + UDClient.escapedParameters(parameters)
+        let URLString = Constants.Endpoint + method + UDClient.escapedParameters(parameters)
         let URL = NSURL(string: URLString)!
         let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
-        URLRequest.addValue(ParseConstants.ApplicationID, forHTTPHeaderField: ParseRequestHeaderKeys.ApplicationID)
-        URLRequest.addValue(ParseConstants.APIKey, forHTTPHeaderField: ParseRequestHeaderKeys.APIKey)
+        URLRequest.HTTPMethod = "DELETE"
         URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         
         return taskForRequest(URLRequest, completionHandler: completionHandler)
     }
+
+    //////////////////////////////////
+    // Shared methods
+    /////////////////////////////////
     
     public func taskForRequest(URLRequest: NSMutableURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
         let task = session.dataTaskWithRequest(URLRequest) {data, response, downloadError in
             
+            var newData: NSData!
+            if data != nil {
+                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+            }
+            
             if let error = downloadError {
-                let newError = UDClient.errorForData(data, response: response, error: error)
+                let newError = UDClient.errorForData(newData, response: response, error: error)
                 completionHandler(result: nil, error: newError)
             }
             else {
                 let httpRes = response as! NSHTTPURLResponse
                 
                 if httpRes.statusCode == 200 || httpRes.statusCode == 201 {
-                    UDClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+                    UDClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
                 }
                 else {
-                    let newError = UDClient.errorForData(data, response: response, error: downloadError)
+                    let newError = UDClient.errorForData(newData, response: response, error: downloadError)
                     completionHandler(result: nil, error: newError)
                 }
             }
@@ -98,9 +113,11 @@ public class UDClient {
         
         if data != nil {
             if let parseResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) as? [String: AnyObject] {
-                if let errorMessage = parseResult[ParseJSONResponseKeys.StatusMessage] as? String {
-                    let userInfo = [NSLocalizedDescriptionKey: errorMessage]
-                    return NSError(domain: ErrorDomain.ClientErrorDomain, code: 1, userInfo: userInfo)
+                if let errorCode = parseResult[JSONResponseKeys.ErrorStatus] as? Int {
+                    if let errorMessage = parseResult[JSONResponseKeys.ErrorMessage] as? String {
+                        let userInfo = [NSLocalizedDescriptionKey: errorMessage]
+                        return NSError(domain: ErrorDomain.ClientErrorDomain, code: errorCode, userInfo: userInfo)
+                    }
                 }
             }
         }
