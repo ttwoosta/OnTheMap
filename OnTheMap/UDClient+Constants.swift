@@ -16,10 +16,21 @@ extension UDClient {
     
     public struct Constants {
         static public let Endpoint: String = "https://www.udacity.com/api"
+        
+        static public let TokenCookieName: String = "XSRF-TOKEN"
+        static public let TokenCookieHeaderField: String = "X-XSRF-TOKEN"
     }
     public struct Methods {
         static public let Session: String = "/session"
         static public let Users: String = "/users"
+    }
+    
+    public struct JSONBodyKeys {
+        static public let Username: String = "username"
+        static public let Password: String = "password"
+        
+        static public let FacebookLogin: String = "facebook_mobile"
+        static public let FacebookAccessToken: String = "access_token"
     }
     
     public struct JSONResponseKeys {

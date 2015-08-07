@@ -97,8 +97,8 @@ class OnTheMapTests: XCTestCase {
         XCTAssertEqual(ust.mediaURLString, "https://www.linkedin.com/in/jarrodparkes")
         XCTAssertEqual(ust.mediaURL.absoluteString!, "https://www.linkedin.com/in/jarrodparkes")
         
-        XCTAssertEqual(ust.latitude.floatValue, 34.7303688)
-        XCTAssertEqual(ust.longitude.floatValue, -86.5861037)
+        XCTAssertEqual(ust.latitude.doubleValue, 34.7303688)
+        XCTAssertEqual(ust.longitude.doubleValue, -86.5861037)
         
         // too hard to compare dates
         XCTAssertNotNil(ust.createdAt)
@@ -124,8 +124,8 @@ class OnTheMapTests: XCTestCase {
         XCTAssertEqual(ust.mediaURLString, "http://en.wikipedia.org/wiki/Swift_%28programming_language%29")
         XCTAssertEqual(ust.mediaURL.absoluteString!, "http://en.wikipedia.org/wiki/Swift_%28programming_language%29")
         
-        XCTAssertEqual(ust.latitude.floatValue, 37.7617)
-        XCTAssertEqual(ust.longitude.floatValue, -122.4216)
+        XCTAssertEqual(ust.latitude.doubleValue, 37.7617)
+        XCTAssertEqual(ust.longitude.doubleValue, -122.4216)
         
         // too hard to compare dates
         XCTAssertNotNil(ust.createdAt)
@@ -151,5 +151,28 @@ class OnTheMapTests: XCTestCase {
         
     }
     
+    //////////////////////////////////
+    // Point Annotation
+    /////////////////////////////////
+
+    func test_student_location_point_annotation() {
+        
+        let fixture = getStudentLocations()
+        let results = fixture["results"] as! [[String: AnyObject]]
+        let firstLocation = results[0]
+        XCTAssertNotNil(firstLocation)
+        
+        var ust = createStudentLocationObject()
+        ust.decodeWith(firstLocation)
+        
+        let anno = ust.pointAnnotation()
+        XCTAssertNotNil(anno)
+        
+        XCTAssertEqual(anno.coordinate.latitude, 34.7303688)
+        XCTAssertEqual(anno.coordinate.longitude, -86.5861037)
+        XCTAssertEqual(anno.title, "Jarrod Parkes")
+        XCTAssertEqual(anno.subtitle, "https://www.linkedin.com/in/jarrodparkes")
+        
+    }
         
 }

@@ -38,7 +38,7 @@ public class UDClient: BaseClient {
         let URLString = Constants.Endpoint + method + UDClient.escapedParameters(parameters)
         let URL = NSURL(string: URLString)!
         let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
-        URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+        URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.Accept)
         
         return taskForRequest(URLRequest, completionHandler: completionHandler)
     }
@@ -49,8 +49,8 @@ public class UDClient: BaseClient {
         let URL = NSURL(string: URLString)!
         let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
         URLRequest.HTTPMethod = "POST"
-        URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-        URLRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.Accept)
+        URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.ContentType)
         
         var serializeError: NSError? = nil
         let postData = NSJSONSerialization.dataWithJSONObject(jsonBody, options: NSJSONWritingOptions.allZeros, error: &serializeError)
@@ -72,7 +72,7 @@ public class UDClient: BaseClient {
         let URL = NSURL(string: URLString)!
         let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
         URLRequest.HTTPMethod = "DELETE"
-        URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+        URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.Accept)
         
         return taskForRequest(URLRequest, completionHandler: completionHandler)
     }

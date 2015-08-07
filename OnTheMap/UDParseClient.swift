@@ -59,8 +59,8 @@ public class UDParseClient: BaseClient {
         URLRequest.HTTPMethod = "POST"
         URLRequest.addValue(Constants.ApplicationID, forHTTPHeaderField: RequestHeaderKeys.ApplicationID)
         URLRequest.addValue(Constants.APIKey, forHTTPHeaderField: RequestHeaderKeys.APIKey)
-        URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-        URLRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.Accept)
+        URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.ContentType)
         
         var serializeError: NSError? = nil
         let postData = NSJSONSerialization.dataWithJSONObject(jsonBody, options: NSJSONWritingOptions.allZeros, error: &serializeError)
@@ -92,7 +92,7 @@ public class UDParseClient: BaseClient {
         let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
         URLRequest.addValue(Constants.ApplicationID, forHTTPHeaderField: RequestHeaderKeys.ApplicationID)
         URLRequest.addValue(Constants.APIKey, forHTTPHeaderField: RequestHeaderKeys.APIKey)
-        URLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+        URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.Accept)
         
         return taskForRequest(URLRequest, completionHandler: completionHandler)
     }

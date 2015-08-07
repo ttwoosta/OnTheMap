@@ -14,6 +14,23 @@ public class BaseClient {
 
     }
     
+    //////////////////////////////////
+    //  Constants
+    /////////////////////////////////
+    
+    struct HTTPHeaderKeys {
+        static let Accept: String = "Accept"
+        static let ContentType: String = "Content-Type"
+    }
+    
+    struct HTTPHeaderValues {
+        static let Json: String = "application/json"
+    }
+    
+    //////////////////////////////////
+    //  Helpers
+    /////////////////////////////////
+    
     public class func subtituteKeyInMethod(method: String, key: String, value: String) -> String? {
         if method.rangeOfString("{\(key)}") != nil {
             return method.stringByReplacingOccurrencesOfString("{\(key)}", withString: value)

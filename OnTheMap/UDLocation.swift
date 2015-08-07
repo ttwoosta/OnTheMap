@@ -77,11 +77,11 @@ public class UDLocation: NSManagedObject {
         firstName = dictionary[JSONKeys.firstName] as! String
         lastName = dictionary[JSONKeys.lastName] as! String
         
-        if let lat = dictionary[JSONKeys.latitude] as? Float {
-            latitude = NSNumber(float: lat)
+        if let lat = dictionary[JSONKeys.latitude] as? Double {
+            latitude = NSNumber(double: lat)
         }
-        if let long = dictionary[JSONKeys.longitude] as? Float {
-            longitude = NSNumber(float: long)
+        if let long = dictionary[JSONKeys.longitude] as? Double {
+            longitude = NSNumber(double: long)
         }
         
         mapString = dictionary[JSONKeys.mapString] as! String
