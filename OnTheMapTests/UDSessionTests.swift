@@ -88,5 +88,28 @@ class UDSessionTests: XCTestCase {
         
         self.waitForExpectationsWithTimeout(15, handler: nil)
     }
+    
+    func test_get_current_user() {
+        let expectation = self.expectationWithDescription(nil)
+        
+        let task = UDClient.getCurrentUser() { user, error in
+            println(user)
+            
+            XCTAssertNotNil(user)
+            XCTAssertNil(error)
+            
+            expectation.fulfill()
+        }
+        
+        let URLRequest: NSURLRequest! = task.originalRequest
+        XCTAssertEqual(URLRequest.HTTPMethod!, "GET")
+        
+        let URLStr: String! = URLRequest.URL?.absoluteString
+        XCTAssertEqual(URLStr, "https://www.udacity.com/api/users/me")
+        
+        self.waitForExpectationsWithTimeout(15, handler: nil)
+    }
+    
+    
 
 }

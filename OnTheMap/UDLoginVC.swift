@@ -66,34 +66,15 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
         
         // facebook login delegate
         btnFacebook.delegate = self
-        
-        
-        
     }
 
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        // is access token exist
-        if let token = FBSDKAccessToken.currentAccessToken() {
-            #if TESTING
-                println(token.tokenString)
-            #else
-                self.loginState = .LoggingIn
-                UDClient.login(token.tokenString) { sessionID, error in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if let httpError = error {
-                            self.lblStatus.text = httpError.localizedDescription
-                            self.loginState = .Ready
-                        }
-                        else {
-                            self.presentMapViewController()
-                        }
-                    }
-                }
-            #endif
-        }
         
-        presentMapViewController()
+        // automaticlly login with facebook token
+        //if let token = FBSDKAccessToken.currentAccessToken() {
+        //    loginAndPresentMapViewController(token.tokenString)
+        //}
     }
     
     //////////////////////////////////
@@ -105,25 +86,25 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
             self.loginState = .LoggingIn
         }
         
-        UDClient.login(txtFieldUsername.text, password: txtFieldPassword.text) { sessionID, error in
+        UDClient.loginAndGetCurrentUser(txtFieldUsername.text, password: txtFieldPassword.text) { currentUser, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if let httpError = error {
                     self.lblStatus.text = httpError.localizedDescription
                     self.loginState = .Ready
                 }
                 else {
+                    // save current user and modally present mapVC
+                    UDAppDelegate.sharedAppDelegate().currentUser = currentUser
                     self.presentMapViewController()
                 }
             }
         }
     }
     
-    
     @IBAction func cancelAction(sender: AnyObject) {
         UIView.animateWithDuration(0.5) {
             self.loginState = .Ready
         }
-        
     }
     
     @IBAction func loginWithFacebookAction(sender: AnyObject) {
@@ -132,9 +113,32 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
         }
     }
     
+    //////////////////////////////////
+    // FBSDKLoginButtonDelegate
+    /////////////////////////////////
+    
+    func loginAndPresentMapViewController(tokenString: String) {
+        self.loginState = .LoggingIn
+        
+        UDClient.loginAndGetCurrentUser(tokenString) { currentUser, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                if let httpError = error {
+                    self.lblStatus.text = httpError.localizedDescription
+                    self.loginState = .Ready
+                }
+                else {
+                    // save current user and modally present mapVC
+                    UDAppDelegate.sharedAppDelegate().currentUser = currentUser
+                    self.presentMapViewController()
+                }
+            }
+        }
+    }
+    
     func presentMapViewController() {
         performSegueWithIdentifier("mapViewController", sender: self)
     }
+    
     //////////////////////////////////
     // FBSDKLoginButtonDelegate
     /////////////////////////////////
@@ -149,17 +153,7 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
             self.loginState = .Ready
         }
         else if let tokenString = result.token.tokenString {
-            UDClient.login(tokenString) { sessionID, error in
-                dispatch_async(dispatch_get_main_queue()) {
-                    if let httpError = error {
-                        self.lblStatus.text = httpError.localizedDescription
-                        self.loginState = .Ready
-                    }
-                    else {
-                        self.presentMapViewController()
-                    }
-                }
-            }
+            loginAndPresentMapViewController(tokenString)
         }
         else {
             lblStatus.text = "Unknow error occurs."

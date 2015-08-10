@@ -14,6 +14,10 @@ extension UDParseClient {
         static public let ClientErrorDomain: String = "UDParseClientErrorDomain"
     }
     
+    public struct ClassesKey {
+        static public let StudentLocation: String = "StudentLocation"
+    }
+    
     public struct Constants {
         static public let Endpoint: String = "https://api.parse.com/1/classes/"
         
@@ -30,14 +34,24 @@ extension UDParseClient {
         
         static public let Order: String = "order"
         static public let Limit: String = "limit"
+        static public let Skip: String = "skip"
     }
     
-    public struct ClassesKey {
-        static public let StudentLocation: String = "StudentLocation"
+    public struct ParametersValue {
+        static public let createdAt: String = "createdAt"
+        static public let firstName: String = "firstName"
+        static public let lastName: String = "lastName"
+        static public let latitude: String = "latitude"
+        static public let longitude: String = "longitude"
+        static public let mapString: String = "mapString"
+        static public let mediaURL: String = "mediaURL"
+        static public let objectId: String = "objectId"
+        static public let uniqueKey: String = "uniqueKey"
+        static public let updatedAt: String = "updatedAt"
     }
-    
+
     public struct JSONResponseKeys {
-        static public let StatusMessage: String = "status"
+        static public let ErrorMessage: String = "error"
         
         static public let Results: String = "results"
     }

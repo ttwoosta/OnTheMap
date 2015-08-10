@@ -130,4 +130,52 @@ extension UDClient {
         task.resume()
         return task
     }
+    
+    
+    public class func getCurrentUser(completionHandler: (currentUser: UDCurrentUser!, error: NSError?) -> Void) -> NSURLSessionTask {
+        let task = getUserData("me") { userData, error in
+            var user: UDCurrentUser!
+            
+            if userData != nil {
+                println(userData)
+                if let userID = userData[JSONResponseKeys.UserID] as? String {
+                    user = UDCurrentUser(userID: userID)
+                    user.firstName = userData[JSONResponseKeys.FirstName] as! String
+                    user.lastName = userData[JSONResponseKeys.LastName] as! String
+                }
+            }
+            
+            completionHandler(currentUser: user, error: error)
+        }
+        
+        return task
+    }
+    
+    //////////////////////////////////
+    // Combine login and get user data
+    /////////////////////////////////
+    
+    public class func loginAndGetCurrentUser(userName: String, password: String, completionHandler: (currentUser: UDCurrentUser!, error: NSError?) -> Void) {
+        
+        UDClient.login(userName, password: password) { sessionID, error in
+            if error == nil {
+                UDClient.getCurrentUser(completionHandler)
+            }
+            else {
+                completionHandler(currentUser: nil, error: error)
+            }
+        }
+    }
+    
+    public class func loginAndGetCurrentUser(facebookToken: String, completionHandler: (currentUser: UDCurrentUser!, error: NSError?) -> Void) {
+        
+        UDClient.login(facebookToken) { sessionID, error in
+            if error == nil {
+                UDClient.getCurrentUser(completionHandler)
+            }
+            else {
+                completionHandler(currentUser: nil, error: error)
+            }
+        }
+    }
 }

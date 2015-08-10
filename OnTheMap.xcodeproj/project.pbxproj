@@ -19,6 +19,14 @@
 		069EC70E1B744B52008F7A7E /* UDLocation+Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC70D1B744B52008F7A7E /* UDLocation+Annotation.swift */; };
 		069EC7121B74F70B008F7A7E /* UDLoginVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7111B74F70B008F7A7E /* UDLoginVCTests.swift */; };
 		069EC7141B753433008F7A7E /* UDPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7131B753433008F7A7E /* UDPointAnnotation.swift */; };
+		069EC7161B764582008F7A7E /* UDParseClient+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069EC7151B764582008F7A7E /* UDParseClient+Convenience.swift */; };
+		06B075E71B76E90300CDCBCE /* UDTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075E61B76E90300CDCBCE /* UDTabController.swift */; };
+		06B075E91B77970500CDCBCE /* MapSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075E81B77970500CDCBCE /* MapSearchTests.swift */; };
+		06B075EB1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075EA1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift */; };
+		06B075ED1B77B7EC00CDCBCE /* UDLocationSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075EC1B77B7EC00CDCBCE /* UDLocationSearchVC.swift */; };
+		06B075EF1B77B81000CDCBCE /* UDLocationPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075EE1B77B81000CDCBCE /* UDLocationPostVC.swift */; };
+		06B075F11B77D58100CDCBCE /* UDPlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075F01B77D58100CDCBCE /* UDPlaceAnnotation.swift */; };
+		06B075F51B77E58B00CDCBCE /* UDCurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075F41B77E58B00CDCBCE /* UDCurrentUser.swift */; };
 		06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */; };
 		06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABF1B71978D00ED6895 /* FirstViewController.swift */; };
 		06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAC11B71978D00ED6895 /* SecondViewController.swift */; };
@@ -57,6 +65,14 @@
 		069EC70D1B744B52008F7A7E /* UDLocation+Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDLocation+Annotation.swift"; sourceTree = "<group>"; };
 		069EC7111B74F70B008F7A7E /* UDLoginVCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLoginVCTests.swift; sourceTree = "<group>"; };
 		069EC7131B753433008F7A7E /* UDPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPointAnnotation.swift; sourceTree = "<group>"; };
+		069EC7151B764582008F7A7E /* UDParseClient+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDParseClient+Convenience.swift"; sourceTree = "<group>"; };
+		06B075E61B76E90300CDCBCE /* UDTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDTabController.swift; sourceTree = "<group>"; };
+		06B075E81B77970500CDCBCE /* MapSearchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSearchTests.swift; sourceTree = "<group>"; };
+		06B075EA1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKLocalSearch+StudentLocation.swift"; sourceTree = "<group>"; };
+		06B075EC1B77B7EC00CDCBCE /* UDLocationSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLocationSearchVC.swift; sourceTree = "<group>"; };
+		06B075EE1B77B81000CDCBCE /* UDLocationPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLocationPostVC.swift; sourceTree = "<group>"; };
+		06B075F01B77D58100CDCBCE /* UDPlaceAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPlaceAnnotation.swift; sourceTree = "<group>"; };
+		06B075F41B77E58B00CDCBCE /* UDCurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDCurrentUser.swift; sourceTree = "<group>"; };
 		06DBCAB81B71978D00ED6895 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06DBCABC1B71978D00ED6895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDAppDelegate.swift; sourceTree = "<group>"; };
@@ -103,12 +119,14 @@
 		069EC70F1B74DBBD008F7A7E /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				06B075EA1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift */,
 				069EC7031B742CDD008F7A7E /* BaseClient.swift */,
 				069EC7051B742D61008F7A7E /* UDParseClient.swift */,
 				069EC7071B742E3D008F7A7E /* UDParseClient+Constants.swift */,
+				069EC7151B764582008F7A7E /* UDParseClient+Convenience.swift */,
 				06DBCB191B72860500ED6895 /* UDClient.swift */,
-				069EC70B1B74360F008F7A7E /* UDClient+Convenience.swift */,
 				06DBCB1D1B7287AC00ED6895 /* UDClient+Constants.swift */,
+				069EC70B1B74360F008F7A7E /* UDClient+Convenience.swift */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -117,8 +135,9 @@
 			isa = PBXGroup;
 			children = (
 				06DBCB151B721BD500ED6895 /* UDLocation.swift */,
-				069EC7131B753433008F7A7E /* UDPointAnnotation.swift */,
 				069EC70D1B744B52008F7A7E /* UDLocation+Annotation.swift */,
+				069EC7131B753433008F7A7E /* UDPointAnnotation.swift */,
+				06B075F01B77D58100CDCBCE /* UDPlaceAnnotation.swift */,
 				06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */,
 			);
 			name = "Student Locations";
@@ -148,11 +167,15 @@
 				06DBCB2A1B73F3A700ED6895 /* FBSDKLoginKit.framework */,
 				06DBCB281B73F20800ED6895 /* FBSDKCoreKit.framework */,
 				06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */,
+				06B075F41B77E58B00CDCBCE /* UDCurrentUser.swift */,
 				069EC7101B74DBC9008F7A7E /* Student Locations */,
 				069EC70F1B74DBBD008F7A7E /* Clients */,
 				069EC6FD1B7401C9008F7A7E /* UDLoginVC.swift */,
+				06B075E61B76E90300CDCBCE /* UDTabController.swift */,
 				06DBCABF1B71978D00ED6895 /* FirstViewController.swift */,
 				06DBCAC11B71978D00ED6895 /* SecondViewController.swift */,
+				06B075EC1B77B7EC00CDCBCE /* UDLocationSearchVC.swift */,
+				06B075EE1B77B81000CDCBCE /* UDLocationPostVC.swift */,
 				06DBCAC31B71978D00ED6895 /* Main.storyboard */,
 				06DBCAC61B71978D00ED6895 /* Images.xcassets */,
 				06DBCAC81B71978D00ED6895 /* LaunchScreen.xib */,
@@ -174,6 +197,7 @@
 			children = (
 				06DBCADF1B72174600ED6895 /* get-student-locations.json */,
 				06DBCAD51B71978D00ED6895 /* StudentLocationTests.swift */,
+				06B075E81B77970500CDCBCE /* MapSearchTests.swift */,
 				069EC7111B74F70B008F7A7E /* UDLoginVCTests.swift */,
 				06DBCB1F1B7299EB00ED6895 /* BaseClientTests.swift */,
 				069EC7091B742F83008F7A7E /* ParseClientTests.swift */,
@@ -292,16 +316,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06B075ED1B77B7EC00CDCBCE /* UDLocationSearchVC.swift in Sources */,
 				069EC7061B742D61008F7A7E /* UDParseClient.swift in Sources */,
+				069EC7161B764582008F7A7E /* UDParseClient+Convenience.swift in Sources */,
 				069EC70C1B74360F008F7A7E /* UDClient+Convenience.swift in Sources */,
 				06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */,
+				06B075F51B77E58B00CDCBCE /* UDCurrentUser.swift in Sources */,
+				06B075E71B76E90300CDCBCE /* UDTabController.swift in Sources */,
 				06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */,
 				06DBCB1E1B7287AC00ED6895 /* UDClient+Constants.swift in Sources */,
 				069EC7041B742CDD008F7A7E /* BaseClient.swift in Sources */,
 				069EC7141B753433008F7A7E /* UDPointAnnotation.swift in Sources */,
+				06B075EF1B77B81000CDCBCE /* UDLocationPostVC.swift in Sources */,
+				06B075EB1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift in Sources */,
 				06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */,
 				069EC7081B742E3D008F7A7E /* UDParseClient+Constants.swift in Sources */,
 				069EC6FE1B7401C9008F7A7E /* UDLoginVC.swift in Sources */,
+				06B075F11B77D58100CDCBCE /* UDPlaceAnnotation.swift in Sources */,
 				06DBCB1A1B72860500ED6895 /* UDClient.swift in Sources */,
 				069EC70E1B744B52008F7A7E /* UDLocation+Annotation.swift in Sources */,
 				06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */,
@@ -317,6 +348,7 @@
 				06DBCB201B7299EB00ED6895 /* BaseClientTests.swift in Sources */,
 				069EC70A1B742F83008F7A7E /* ParseClientTests.swift in Sources */,
 				069EC7021B741FC1008F7A7E /* UDSessionTests.swift in Sources */,
+				06B075E91B77970500CDCBCE /* MapSearchTests.swift in Sources */,
 				069EC7121B74F70B008F7A7E /* UDLoginVCTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

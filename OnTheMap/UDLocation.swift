@@ -50,10 +50,13 @@ public class UDLocation: NSManagedObject {
     //////////////////////////////////
     // Date formmater
     /////////////////////////////////
-    
-    static let dateFormmater2 = NSDateFormatter()
+        
+    static let dateFormat = NSDateFormatter()
     public override class func initialize() {
-        dateFormmater2.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        //dateFormat.AMSymbol = "AM"
+        //dateFormat.PMSymbol = "PM"
+        dateFormat.dateFormat = "MM/dd/yyyy hh:mm a"
+        
         super.initialize()
     }
     
@@ -87,7 +90,9 @@ public class UDLocation: NSManagedObject {
         mapString = dictionary[JSONKeys.mapString] as! String
         mediaURLString = dictionary[JSONKeys.mediaURL] as! String
         objectId = dictionary[JSONKeys.objectId] as! String
-        uniqueKey = dictionary[JSONKeys.uniqueKey] as! String
+        if let uniKey = dictionary[JSONKeys.uniqueKey] as? NSNumber {
+            uniqueKey = "\(uniKey)"
+        }
         
         let dateFormmater = UDLocation.dateFormmater()
         let dateFormmater1 = UDLocation.dateFormmater()

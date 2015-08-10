@@ -171,7 +171,7 @@ class OnTheMapTests: XCTestCase {
         XCTAssertEqual(anno.coordinate.latitude, 34.7303688)
         XCTAssertEqual(anno.coordinate.longitude, -86.5861037)
         XCTAssertEqual(anno.title, "Jarrod Parkes")
-        XCTAssertEqual(anno.subtitle, "https://www.linkedin.com/in/jarrodparkes")
+        XCTAssertEqual(anno.subtitle, "Updated at: 03/09/2015 10:04 PM")
         
     }
         

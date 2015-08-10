@@ -40,6 +40,10 @@ extension UDClient {
         static public let Results: String = "results"
         static public let User: String = "user"
         
+        static public let FirstName: String = "first_name"
+        static public let LastName: String = "last_name"
+        static public let UserID: String = "key"
+        
         static public let SessionIDKeyPath: String = "session.id"
         static public let AccountIDKeyPath: String = "account.key"
     }

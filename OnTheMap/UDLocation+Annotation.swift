@@ -12,6 +12,8 @@ import MapKit
 
 extension UDLocation {
     
+    
+    
     public func annoCoordinate() -> CLLocationCoordinate2D {
         // create 2D coordinate
         let lat = CLLocationDegrees(latitude.doubleValue)
@@ -25,7 +27,7 @@ extension UDLocation {
     }
     
     public func annoSubtitle() -> String {
-        return "\(createdAt)"
+        return "Updated at: " + UDLocation.dateFormat.stringFromDate(updatedAt)
     }
     
     public func pointAnnotation() -> UDPointAnnotation {
@@ -39,5 +41,7 @@ extension UDLocation {
         
         return annotation
     }
+    
+    
     
 }
