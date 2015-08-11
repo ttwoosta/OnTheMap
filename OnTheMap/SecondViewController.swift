@@ -105,6 +105,17 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     //////////////////////////////////
+    // MARK: Table View Delegate
+    /////////////////////////////////
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let loc = frController.objectAtIndexPath(indexPath) as? UDLocation {
+            let app = UIApplication.sharedApplication()
+            app.openURL(loc.mediaURL)
+        }
+    }
+    
+    //////////////////////////////////
     // MARK: Convenience
     /////////////////////////////////
     
