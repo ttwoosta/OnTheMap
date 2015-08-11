@@ -28,6 +28,8 @@
 		06B075F91B797D4F00CDCBCE /* UDLocation+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075F81B797D4F00CDCBCE /* UDLocation+Constants.swift */; };
 		06B075FF1B799DF700CDCBCE /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B075FD1B799DF700CDCBCE /* FBSDKCoreKit.framework */; };
 		06B076001B799DF700CDCBCE /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B075FE1B799DF700CDCBCE /* FBSDKLoginKit.framework */; };
+		06B076031B7A32C800CDCBCE /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B075FD1B799DF700CDCBCE /* FBSDKCoreKit.framework */; };
+		06B076041B7A32C800CDCBCE /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B075FE1B799DF700CDCBCE /* FBSDKLoginKit.framework */; };
 		06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */; };
 		06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABF1B71978D00ED6895 /* FirstViewController.swift */; };
 		06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAC11B71978D00ED6895 /* SecondViewController.swift */; };
@@ -108,6 +110,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06B076031B7A32C800CDCBCE /* FBSDKCoreKit.framework in Frameworks */,
+				06B076041B7A32C800CDCBCE /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,7 +476,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/tutong/Documents/FacebookSDK,
 					"$(PROJECT_DIR)/OnTheMap",
 				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
@@ -487,7 +490,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/tutong/Documents/FacebookSDK,
 					"$(PROJECT_DIR)/OnTheMap",
 				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
@@ -503,7 +505,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					/Users/tutong/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/OnTheMap",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -524,7 +526,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					/Users/tutong/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/OnTheMap",
 				);
 				INFOPLIST_FILE = OnTheMapTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
