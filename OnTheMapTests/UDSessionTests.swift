@@ -58,13 +58,21 @@ class UDSessionTests: XCTestCase {
     func test_logout() {
         let expectation = self.expectationWithDescription(nil)
         
-        UDClient.logout() { sessionId, error in
+        let task = UDClient.logout() { sessionId, error in
             XCTAssertNotNil(sessionId)
             XCTAssertNil(error)
+            println(sessionId)
             
             XCTAssertNil(UDClient.sharedInstance().userID)
             expectation.fulfill()
         }
+        
+        let URLRequest: NSURLRequest! = task.originalRequest
+        XCTAssertEqual(URLRequest.HTTPMethod!, "POST")
+        XCTAssertNotNil(URLRequest.HTTPBody)
+        
+        let appID: String! = URLRequest?.valueForHTTPHeaderField("X-XSRF-TOKEN")
+        XCTAssertEqual(appID, "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr")
         
         self.waitForExpectationsWithTimeout(15, handler: nil)
     }

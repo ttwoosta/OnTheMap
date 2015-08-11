@@ -69,40 +69,24 @@ extension UDClient {
     // MARK: Logout
     /////////////////////////////////
     
-    public class func getTokenCookie() -> NSHTTPCookie! {
-        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
-            if cookie.name == Constants.TokenCookieName {
-                return cookie
-            }
-        }
-        return nil
-    }
-    
     public class func logout(completionHandler: (sessionId: String!, error: NSError?) -> Void) -> NSURLSessionTask! {
         
-        let cookie = getTokenCookie()
-        if cookie == nil {
-            completionHandler(sessionId: "", error: nil)
-            return nil
-        }
-
         let task = sharedInstance().taskForDELETEMethod(Methods.Session, parameters: nil) { result, error in
             var sessionId: String!
             if error == nil {
                 if let session_id = result.valueForKeyPath(JSONResponseKeys.SessionIDKeyPath) as? String {
                     sessionId = session_id
                     self.sharedInstance().userID = nil
-                    NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+                    
+                    // if signout successfully, delete cookie
+                    if let cookie = self.getUdacityTokenCookie() {
+                        NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+                    }
                 }
             }
             
             completionHandler(sessionId: sessionId, error: error)
         }
-        
-        // get the mutable url request
-        let URLRequest = task.originalRequest as! NSMutableURLRequest
-        URLRequest.setValue(cookie.value!, forHTTPHeaderField: Constants.TokenCookieHeaderField)
         
         task.resume()
         return task

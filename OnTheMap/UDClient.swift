@@ -37,6 +37,17 @@ public class UDClient: BaseClient {
     // MARK: Udacity API
     /////////////////////////////////
     
+    public class func getUdacityTokenCookie() -> NSHTTPCookie! {
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        let cookies = sharedCookieStorage.cookies as! [NSHTTPCookie]
+        for cookie in cookies {
+            if cookie.name == Constants.TokenCookieName {
+                return cookie
+            }
+        }
+        return nil
+    }
+    
     public func taskForGETMethod(method: String, parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
         
         let URLString = Constants.Endpoint + method + UDClient.escapedParameters(parameters)
@@ -51,10 +62,16 @@ public class UDClient: BaseClient {
         
         let URLString = Constants.Endpoint + method + UDClient.escapedParameters(parameters)
         let URL = NSURL(string: URLString)!
-        let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
+        let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
         URLRequest.HTTPMethod = "POST"
         URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.Accept)
         URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.ContentType)
+        
+        // get token cookie from cookie storage
+        // set header field with cookie value
+        if let cookie = UDClient.getUdacityTokenCookie() {
+            URLRequest.addValue(cookie.value!, forHTTPHeaderField: Constants.TokenCookieHeaderField)
+        }
         
         var serializeError: NSError? = nil
         let postData = NSJSONSerialization.dataWithJSONObject(jsonBody, options: NSJSONWritingOptions.allZeros, error: &serializeError)
@@ -74,9 +91,15 @@ public class UDClient: BaseClient {
         
         let URLString = Constants.Endpoint + method + UDClient.escapedParameters(parameters)
         let URL = NSURL(string: URLString)!
-        let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 30)
+        let URLRequest = NSMutableURLRequest(URL: URL, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
         URLRequest.HTTPMethod = "DELETE"
         URLRequest.addValue(HTTPHeaderValues.Json, forHTTPHeaderField: HTTPHeaderKeys.Accept)
+        
+        // get token cookie from cookie storage
+        // set header field with cookie value
+        if let cookie = UDClient.getUdacityTokenCookie() {
+            URLRequest.addValue(cookie.value!, forHTTPHeaderField: Constants.TokenCookieHeaderField)
+        }
         
         return taskForRequest(URLRequest, completionHandler: completionHandler)
     }
