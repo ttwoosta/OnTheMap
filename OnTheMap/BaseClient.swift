@@ -15,7 +15,7 @@ public class BaseClient {
     }
     
     //////////////////////////////////
-    //  Constants
+    //  MARK: Constants
     /////////////////////////////////
     
     struct HTTPHeaderKeys {
@@ -28,7 +28,7 @@ public class BaseClient {
     }
     
     //////////////////////////////////
-    //  Helpers
+    //  MARK: Helpers
     /////////////////////////////////
     
     public class func subtituteKeyInMethod(method: String, key: String, value: String) -> String? {

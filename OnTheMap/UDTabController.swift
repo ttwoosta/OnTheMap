@@ -9,11 +9,20 @@
 import UIKit
 import CoreData
 import MapKit
+import FBSDKLoginKit
 
-class UDTabController: UITabBarController, CLLocationManagerDelegate {
+class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertViewDelegate {
     
     var locationManager: CLLocationManager!
     var moc: NSManagedObjectContext!
+    
+    // alertView's tag
+    let kAlertTagSignOut = 0
+    let kAlertTagUpdateLocation = 1
+    
+    //////////////////////////////////
+    // MARK: Override methods
+    /////////////////////////////////
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,55 +37,116 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
-    func hardCodedLocation() -> [String : AnyObject] {
-        return  [
-                "firstName" : "Tu",
-                "lastName" : "Tong",
-                "latitude" : 27.1461248,
-                "longitude" : -81.75676799999999,
-                "mapString" : "Worcester, MA",
-                "mediaURL" : "www.linkedin.com/in/jessicauelmen/en",
-                "objectId" : "kj18GEaLD8",
-                "uniqueKey" : 872453750,
-        ]
-    }
+    //////////////////////////////////
+    // MARK: Actions
+    /////////////////////////////////
     
     @IBAction func signOutAction(sender: AnyObject) {
+        
+        let alert = UIAlertView(title: "SignOut", message: "Are you sure sign out?",
+            delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
+        alert.tag = kAlertTagSignOut
+        alert.show()
+        
         
     }
     
     @IBAction func addLocationAction(sender: AnyObject) {
-//        let entity = NSEntityDescription.entityForName("UDLocation", inManagedObjectContext: moc)
-//        
-//        // student location object
-//        var loc = UDLocation(entity: entity!, insertIntoManagedObjectContext: moc)
-//        
-//        loc.decodeWith(hardCodedLocation())
-//        loc.updatedAt = NSDate()
-//        loc.createdAt = NSDate()
-//        //moc.save(nil)
-        
+        let userID = UDAppDelegate.sharedAppDelegate().currentUser?.userID
+        if let obj = UDLocation.studentLocationForUniqueKey(userID!, inManagedObjectContext: moc) {
+            let alert = UIAlertView(title: "Your location posted", message: "Are you sure overwrite current location?",
+                delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
+            alert.tag = kAlertTagUpdateLocation
+            alert.show()
+        }
+        else {
+            presentPostingLocationVC()
+        }
     }
     
     @IBAction func refreshAction(sender: AnyObject) {
-        let fetchRequest = NSFetchRequest(entityName: "UDLocation")
-        fetchRequest.predicate = NSPredicate(value: true)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
         
+        // initial fetch request
+        let fetchRequest = NSFetchRequest(entityName: UDLocation.kUDLocation)
+        fetchRequest.predicate = NSPredicate(value: true)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: UDLocation.JSONKeys.createdAt, ascending: true)]
+        
+        // search for all location object
         let results = moc.executeFetchRequest(fetchRequest, error: nil) as! [UDLocation]
         
+        // delete all existing locations
         for loc in results {
             moc.deleteObject(loc)
         }
         
         // populate locations
-        let appDelegate = UIApplication.sharedApplication().delegate as! UDAppDelegate
-        let data = appDelegate.hardCodedLocationData()
-        UDLocation.locationsFromResults(data, moc: moc)
+        let parameters: [String: AnyObject] = [UDParseClient.ParametersKey.Order: "-\(UDParseClient.ParametersValue.updatedAt)"]
+        
+        UDParseClient.recurQueryStudentLocations(parameters) {[weak self] result, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
+                        delegate: nil, cancelButtonTitle: "OK")
+                    alert.show()
+                }
+                else if let context = self?.moc {
+                    if let results = result as? [[String: AnyObject]] {
+                        UDLocation.locationsFromResults(results, moc: context)
+                    }
+                }
+            }
+            
+        }
     }
     
     //////////////////////////////////
-    // CLLocationManagerDelegate
+    // MARK: UIAlertViewDelegate
+    /////////////////////////////////
+    
+    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+        // ok button tapped, cancel button's index value is 0
+        if buttonIndex != 0 {
+            if alertView.tag == kAlertTagUpdateLocation {
+                presentPostingLocationVC()
+            }
+            else if alertView.tag == kAlertTagSignOut {
+                signOut()
+            }
+            else {
+                assert(false, "Unknown alert view")
+            }
+        }
+    }
+    
+    //////////////////////////////////
+    // MARK: Internal methods
+    /////////////////////////////////
+    
+    func presentPostingLocationVC() {
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("LocationPostNavigation") as! UIViewController
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func signOut() {
+        
+        UDClient.logout() { [unowned self] result, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil {
+                    FBSDKAccessToken.setCurrentAccessToken(nil)
+                    FBSDKProfile.setCurrentProfile(nil)
+                    self.dismissViewControllerAnimated(true, completion:nil)
+                }
+                else {
+                    let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
+                        delegate: nil, cancelButtonTitle: "OK")
+                    alert.show()
+                }
+            }
+        }
+    }
+    
+    //////////////////////////////////
+    // MARK: CLLocationManagerDelegate
     /////////////////////////////////
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {

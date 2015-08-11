@@ -186,8 +186,8 @@ class ParseClientTests: XCTestCase {
     /////////////////////////////////
     
     // must change this 2 value before test
-    let USER_ID = "my_id"
-    let OBJECT_ID = "object_id"
+    let USER_ID = "my_user_id"
+    let OBJECT_ID = "my_object_id"
     
     func createStudentLocationObject() -> UDLocation {
         // entity
@@ -234,6 +234,10 @@ class ParseClientTests: XCTestCase {
             XCTAssertNotNil(result)
             XCTAssertNil(error)
             
+            XCTAssertNotNil(result["updatedAt"])
+            XCTAssertNotNil(result["uniqueKey"])
+            XCTAssertNotNil(result["objectId"])
+            
             expectation.fulfill()
         }
         waitForExpectationsWithTimeout(10, handler: nil)
@@ -244,7 +248,8 @@ class ParseClientTests: XCTestCase {
         
 //        let userInfo = ["longitude": -71.056742, "lastName": "my_last_name", "latitude": 42.358894, "firstName": "my_first_name", "uniqueKey": USER_ID, "mapString": "Boston, MA, United States", "mediaURL": "http://udacity.com/my_profile"] as [String: AnyObject]
         
-        let userInfo = ["mediaURL": "http://udacity.com/my_profile"] as [String: AnyObject]
+        let userInfo = ["mediaURL": "http://udacity.com/my_profile",
+            "uniqueKey": USER_ID] as [String: AnyObject]
         
         let task = UDParseClient.updateStudentLocation(OBJECT_ID, postBody: userInfo) { result, error in
             println(result)
@@ -254,6 +259,8 @@ class ParseClientTests: XCTestCase {
             XCTAssertNil(error)
             
             XCTAssertNotNil(result["updatedAt"])
+            XCTAssertNotNil(result["uniqueKey"])
+            XCTAssertNotNil(result["objectId"])
                         
             expectation.fulfill()
         }
@@ -287,7 +294,9 @@ class ParseClientTests: XCTestCase {
             XCTAssertNotNil(result)
             XCTAssertNil(error)
             
-            //XCTAssertNotNil(result["updatedAt"])
+            XCTAssertNotNil(result["updatedAt"])
+            XCTAssertNotNil(result["uniqueKey"])
+            XCTAssertNotNil(result["objectId"])
             
             expectation.fulfill()
         }

@@ -18,8 +18,19 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     var places: [MKMapItem]!
     
     //////////////////////////////////
-    // Override methods
+    // MARK: Override methods
     /////////////////////////////////
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // get current location and update textField to previous entered url
+        let userID = UDAppDelegate.sharedAppDelegate().currentUser?.userID
+        let moc = UDAppDelegate.sharedAppDelegate().managedObjectContext!
+        if let obj = UDLocation.studentLocationForUniqueKey(userID!, inManagedObjectContext: moc) {
+            searchBarView.text = obj.mapString
+        }
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -29,7 +40,7 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     }
     
     //////////////////////////////////
-    // Cancel action
+    // MARK: Cancel action
     /////////////////////////////////
     
     @IBAction func cancelAction(sender: AnyObject) {
@@ -39,7 +50,7 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     }
     
     //////////////////////////////////
-    // UISearchBarDelegate
+    // MARK: UISearchBarDelegate
     /////////////////////////////////
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -83,7 +94,7 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     }
     
     //////////////////////////////////
-    // Search locations
+    // MARK: Search locations
     /////////////////////////////////
     
     func startSearch(searchString: String) {
@@ -98,23 +109,21 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
         let userLocation = appDelegate?.userLocation
         
         // start search places with keyword and user location
-        localSearch = MKLocalSearch.search(searchString, userLocation: userLocation) { mapItems, error in
+        localSearch = MKLocalSearch.search(searchString, userLocation: userLocation) {[weak self] mapItems, error in
             if error != nil {
                 let alert = UIAlertView(title: "Could not find any places", message: error?.localizedDescription,
                     delegate: nil, cancelButtonTitle: "OK")
                 alert.show()
             }
             else {
-                self.places = mapItems
-                self.tableView.reloadData()
+                self?.places = mapItems
+                self?.tableView.reloadData()
             }
-        
         }
     }
     
-    
     //////////////////////////////////
-    // TableView DataSource
+    // MARK: TableView DataSource
     /////////////////////////////////
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,7 +144,7 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     }
     
     //////////////////////////////////
-    // TableView Delegate
+    // MARK: TableView Delegate
     /////////////////////////////////
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

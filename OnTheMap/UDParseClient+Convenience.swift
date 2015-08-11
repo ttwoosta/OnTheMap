@@ -12,7 +12,7 @@ import Foundation
 extension UDParseClient {
     
     //////////////////////////////////
-    // Convenience
+    // MARK: Query
     /////////////////////////////////
     
     public class func queryStudentLocations(parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
@@ -27,7 +27,6 @@ extension UDParseClient {
                     }
                 }
             }
-            println(result)
             completionHandler(result: locations, error: error)
         }
         task.resume()
@@ -69,7 +68,7 @@ extension UDParseClient {
     }
     
     //////////////////////////////////
-    // Single user location
+    // MARK: Single user location
     /////////////////////////////////
 
     public class func postStudentLocation(postBody: [String: AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
@@ -125,6 +124,7 @@ extension UDParseClient {
             // for values updateAt
             if result != nil {
                 mutableResult = postBody
+                mutableResult[ParametersValue.objectId] = objectID
                 if let updatedDateStr = result[ParametersValue.updatedAt] as? String {
                     mutableResult[ParametersValue.updatedAt] = updatedDateStr
                 }
@@ -140,14 +140,27 @@ extension UDParseClient {
     public class func deleteStudentLocation(objectID: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
         let classPath = ClassesKey.StudentLocation + "/\(objectID)"
         
-        let task = sharedInstance().taskForDELETEMethod(classPath, parameters: nil) { result, error in
-            println(result)
-            
-            completionHandler(result: result, error: error)
-        }
-        
+        let task = sharedInstance().taskForDELETEMethod(classPath, parameters: nil, completionHandler: completionHandler)
         task.resume()
         return task
     }
     
+    //////////////////////////////////
+    // MARK: Combine
+    /////////////////////////////////
+    
+    public class func postOrUpdateStudentLocation(userID: String, postBody: [String: AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
+        
+        getStudentLocation(userID) { result, error in
+            if error != nil {
+                completionHandler(result: result, error: error)
+            }
+            else if let objectID = result?[ParametersValue.objectId] as? String {
+                self.updateStudentLocation(objectID, postBody: postBody, completionHandler: completionHandler)
+            }
+            else {
+                self.postStudentLocation(postBody, completionHandler: completionHandler)
+            }
+        }
+    }
 }

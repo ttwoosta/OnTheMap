@@ -16,6 +16,10 @@ public class UDClient: BaseClient {
     
     public var userID: String!
     public var sessionID: String!
+
+    //////////////////////////////////
+    // MARK: Singleton
+    /////////////////////////////////
     
     public class func sharedInstance() -> UDClient {
         struct Singleton {
@@ -30,7 +34,7 @@ public class UDClient: BaseClient {
     }
     
     //////////////////////////////////
-    // Udacity API
+    // MARK: Udacity API
     /////////////////////////////////
     
     public func taskForGETMethod(method: String, parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
@@ -78,7 +82,7 @@ public class UDClient: BaseClient {
     }
 
     //////////////////////////////////
-    // Shared methods
+    // MARK: Shared methods
     /////////////////////////////////
     
     public func taskForRequest(URLRequest: NSMutableURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {

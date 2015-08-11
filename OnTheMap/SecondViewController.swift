@@ -26,7 +26,7 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
     }
     
     //////////////////////////////////
-    // NSFetchedResultsControllerDelegate
+    // MARK: NSFetchedResultsControllerDelegate
     /////////////////////////////////
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
@@ -70,7 +70,7 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
     }
     
     //////////////////////////////////
-    // Table View Data source
+    // MARK: Table View Data source
     /////////////////////////////////
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -90,6 +90,8 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
     
     func configCell(cell: UITableViewCell, locationObject: UDLocation) {
         cell.textLabel?.text = locationObject.annoTitle()
+        cell.detailTextLabel?.text = locationObject.mapString
+        cell.imageView?.image = UIImage(named: "pin")
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -103,7 +105,7 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     //////////////////////////////////
-    // Convenience
+    // MARK: Convenience
     /////////////////////////////////
     
     func setupFetchedResultsController() {

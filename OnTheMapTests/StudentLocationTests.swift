@@ -174,5 +174,64 @@ class OnTheMapTests: XCTestCase {
         XCTAssertEqual(anno.subtitle, "Updated at: 03/09/2015 10:04 PM")
         
     }
+    
+    
+    //////////////////////////////////
+    // Point Annotation
+    /////////////////////////////////
+    
+    func create_an_object() {
+        let fixture = getStudentLocations()
+        let results = fixture["results"] as! [[String: AnyObject]]
+        let firstLocation = results[0]
+        XCTAssertNotNil(firstLocation)
+        
+        var ust = createStudentLocationObject()
+        ust.decodeWith(firstLocation)
+    }
+    
+    func test_fetch_student_location_with_uniquekey() {
+        // create an sample object
+        create_an_object()
+        
+        // initialize fetch request
+        var fetchRequest = NSFetchRequest(entityName: "UDLocation")
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uniqueKey", "996618664")
+        fetchRequest.fetchLimit = 1
+        
+        var error: NSError? = nil
+        let result = moc.executeFetchRequest(fetchRequest, error: &error)
+        
+        XCTAssertNotNil(result)
+        XCTAssertNil(error)
+        
+        let ust = result?.first as! UDLocation
+        XCTAssertEqual(ust.uniqueKey, "996618664")
+    }
+    
+    func test_create_or_update_object() {
+        let fixture = getStudentLocations()
+        let results = fixture["results"] as! [[String: AnyObject]]
+        let firstLocation = results[0]
+        XCTAssertNotNil(firstLocation)
+        
+        // initialize fetch request
+        var fetchRequest = NSFetchRequest(entityName: "UDLocation")
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uniqueKey", "996618664")
+        fetchRequest.fetchLimit = 1
+        
+        var error: NSError? = nil
+        let result = moc.executeFetchRequest(fetchRequest, error: &error)
+        
+        if let obj = result?.last as? UDLocation {
+            obj.decodeWith(firstLocation)
+        }
+        else {
+            let entity = NSEntityDescription.entityForName("UDLocation", inManagedObjectContext: moc)
+            var obj = UDLocation(entity: entity!, insertIntoManagedObjectContext: moc)
+            obj.decodeWith(firstLocation)
+        }
+        
+    }
         
 }

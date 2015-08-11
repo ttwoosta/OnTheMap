@@ -11,22 +11,10 @@ import CoreData
 
 public class UDLocation: NSManagedObject {
     
-    struct JSONKeys {
-        static let createdAt: String = "createdAt"
-        static let firstName: String = "firstName"
-        static let lastName: String = "lastName"
-        static let latitude: String = "latitude"
-        static let longitude: String = "longitude"
-        static let mapString: String = "mapString"
-        static let mediaURL: String = "mediaURL"
-        static let objectId: String = "objectId"
-        static let uniqueKey: String = "uniqueKey"
-        static let updatedAt: String = "updatedAt"
-    }
-    
+    static let kUDLocation = "UDLocation"
     
     //////////////////////////////////
-    // Properties
+    // MARK: Properties
     /////////////////////////////////
     
     @NSManaged public var objectId: String
@@ -48,7 +36,7 @@ public class UDLocation: NSManagedObject {
     }
     
     //////////////////////////////////
-    // Date formmater
+    // MARK: Date formmater
     /////////////////////////////////
         
     static let dateFormat = NSDateFormatter()
@@ -73,7 +61,7 @@ public class UDLocation: NSManagedObject {
     }
     
     //////////////////////////////////
-    // Decode method
+    // MARK: Decode method
     /////////////////////////////////
     
     public func decodeWith(dictionary: [String: AnyObject]) {
@@ -89,13 +77,20 @@ public class UDLocation: NSManagedObject {
         
         mapString = dictionary[JSONKeys.mapString] as! String
         mediaURLString = dictionary[JSONKeys.mediaURL] as! String
-        objectId = dictionary[JSONKeys.objectId] as! String
+        
+        if let objId = dictionary[JSONKeys.objectId] as? String {
+            objectId = objId
+        }
         if let uniKey = dictionary[JSONKeys.uniqueKey] as? NSNumber {
             uniqueKey = "\(uniKey)"
         }
+        // most of student's id are Number
+        // mine starting with "u######"
+        if let uniKey = dictionary[JSONKeys.uniqueKey] as? String {
+            uniqueKey = uniKey
+        }
         
         let dateFormmater = UDLocation.dateFormmater()
-        let dateFormmater1 = UDLocation.dateFormmater()
         if let created = dictionary[JSONKeys.createdAt] as? String {
             createdAt = dateFormmater.dateFromString(created)!
         }
@@ -104,22 +99,7 @@ public class UDLocation: NSManagedObject {
         }
     }
     
-    public class func locationsFromResults(results: [[String: AnyObject]], moc: NSManagedObjectContext) -> [UDLocation] {
-        
-        // Location object entity
-        let entity = NSEntityDescription.entityForName("UDLocation", inManagedObjectContext: moc)!
-        
-        // returned locations array
-        var locations = [UDLocation]()
-        
-        for d in results {
-            var loc = UDLocation(entity: entity, insertIntoManagedObjectContext: moc)
-            loc.decodeWith(d)
-            locations.append(loc)
-        }
-        
-        return locations
-    }
+    
     
     
 

@@ -16,22 +16,42 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
     var moc: NSManagedObjectContext!
     var frController: NSFetchedResultsController!
     
+    var currentUserID: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // get the moc
         let appDelegate = UIApplication.sharedApplication().delegate as! UDAppDelegate
         moc = appDelegate.managedObjectContext!
         
+        // current user id
+        currentUserID = appDelegate.currentUser?.userID
+        
         // initializes fetch controller
         setupFetchedResultsController()
         
         // populate locations
-        let results = appDelegate.hardCodedLocationData()
-        UDLocation.locationsFromResults(results, moc: moc)
+        let parameters: [String: AnyObject] = [UDParseClient.ParametersKey.Order: "-\(UDParseClient.ParametersValue.updatedAt)"]
+        
+        UDParseClient.recurQueryStudentLocations(parameters) {[weak self] result, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
+                        delegate: nil, cancelButtonTitle: "OK")
+                    alert.show()
+                }
+                else if let context = self?.moc {
+                    if let results = result as? [[String: AnyObject]] {
+                        UDLocation.locationsFromResults(results, moc: context)
+                    }
+                }
+            }
+        
+        }
     }
     
     //////////////////////////////////
-    // NSFetchedResultsControllerDelegate
+    // MARK: NSFetchedResultsControllerDelegate
     /////////////////////////////////
     
     func annotationForUniqueKey(uniqueKey: String) -> UDPointAnnotation! {
@@ -50,12 +70,19 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
             case .Insert:
                 var anno = loc.pointAnnotation()
                 anno.indexPath = newIndexPath
+                if loc.uniqueKey == currentUserID {
+                    anno.isCurrentUserLocation = true
+                }
                 mapView.addAnnotation(anno)
             case .Update:
                 if let anno = annotationForUniqueKey(loc.uniqueKey) {
+                    // update location
                     anno.coordinate = loc.annoCoordinate()
                     anno.title = loc.annoTitle()
                     anno.subtitle = loc.annoSubtitle()
+                    
+                    // animated select new location
+                    mapView.selectAnnotation(anno, animated: true)
                 }
             case .Delete:
                 if let anno = annotationForUniqueKey(loc.uniqueKey) {
@@ -70,8 +97,18 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
     }
     
     //////////////////////////////////
-    // MKMapViewDelegate
+    // MARK: MKMapViewDelegate
     /////////////////////////////////
+    
+    func locationObjcForAnnotation(anno: MKAnnotation) -> UDLocation! {
+        if let anno = anno as? UDPointAnnotation {
+            // location
+            if let loc = frController.objectAtIndexPath(anno.indexPath) as? UDLocation {
+                return loc
+            }
+        }
+        return nil
+    }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
@@ -90,6 +127,15 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         }
         else {
             pinView!.annotation = annotation
+            pinView.pinColor = .Red
+        }
+        
+        // highlight current location with purple color
+        if let anno = annotation as? UDPointAnnotation {
+            if anno.isCurrentUserLocation {
+                pinView.pinColor = .Purple
+                pinView.setSelected(true, animated: true)
+            }
         }
         
         return pinView
@@ -110,13 +156,13 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
 
     
     //////////////////////////////////
-    // Convenience
+    // MARK: Convenience
     /////////////////////////////////
     
     func setupFetchedResultsController() {
-        let fetchRequest = NSFetchRequest(entityName: "UDLocation")
+        let fetchRequest = NSFetchRequest(entityName: UDLocation.kUDLocation)
         fetchRequest.predicate = NSPredicate(value: true)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: UDLocation.JSONKeys.updatedAt, ascending: false)]
         
         frController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
@@ -124,16 +170,6 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         frController.delegate = self
         frController.performFetch(nil)
     }
-    
-    func allLocation() -> [UDLocation] {
-        let fetchRequest = NSFetchRequest(entityName: "UDLocation")
-        fetchRequest.predicate = NSPredicate(value: true)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
-        
-        let results = moc.executeFetchRequest(fetchRequest, error: nil) as! [UDLocation]
-        return results
-    }
-
     
 }
 

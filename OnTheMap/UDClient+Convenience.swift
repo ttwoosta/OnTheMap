@@ -12,7 +12,7 @@ extension UDClient {
     
         
     //////////////////////////////////
-    // Login
+    // MARK: Login
     /////////////////////////////////
     
     public class func login(userName: String, password: String, completionHandler: (sessionId: String!, error: NSError?) -> Void) -> NSURLSessionTask {
@@ -66,7 +66,7 @@ extension UDClient {
     }
     
     //////////////////////////////////
-    // Logout
+    // MARK: Logout
     /////////////////////////////////
     
     public class func getTokenCookie() -> NSHTTPCookie! {
@@ -109,7 +109,7 @@ extension UDClient {
     }
     
     //////////////////////////////////
-    // Get user data
+    // MARK: Get user data
     /////////////////////////////////
     
     public class func getUserData(userID: String, completionHandler: (userData: [String: AnyObject]!, error: NSError?) -> Void) -> NSURLSessionTask {
@@ -137,7 +137,6 @@ extension UDClient {
             var user: UDCurrentUser!
             
             if userData != nil {
-                println(userData)
                 if let userID = userData[JSONResponseKeys.UserID] as? String {
                     user = UDCurrentUser(userID: userID)
                     user.firstName = userData[JSONResponseKeys.FirstName] as! String
@@ -152,12 +151,12 @@ extension UDClient {
     }
     
     //////////////////////////////////
-    // Combine login and get user data
+    // MARK: Combine login and get user data
     /////////////////////////////////
     
-    public class func loginAndGetCurrentUser(userName: String, password: String, completionHandler: (currentUser: UDCurrentUser!, error: NSError?) -> Void) {
+    public class func loginAndGetCurrentUser(userName: String, password: String, completionHandler: (currentUser: UDCurrentUser!, error: NSError?) -> Void) -> NSURLSessionTask {
         
-        UDClient.login(userName, password: password) { sessionID, error in
+        let task = UDClient.login(userName, password: password) { sessionID, error in
             if error == nil {
                 UDClient.getCurrentUser(completionHandler)
             }
@@ -165,11 +164,12 @@ extension UDClient {
                 completionHandler(currentUser: nil, error: error)
             }
         }
+        return task
     }
     
-    public class func loginAndGetCurrentUser(facebookToken: String, completionHandler: (currentUser: UDCurrentUser!, error: NSError?) -> Void) {
+    public class func loginAndGetCurrentUser(facebookToken: String, completionHandler: (currentUser: UDCurrentUser!, error: NSError?) -> Void) -> NSURLSessionTask {
         
-        UDClient.login(facebookToken) { sessionID, error in
+        let task = UDClient.login(facebookToken) { sessionID, error in
             if error == nil {
                 UDClient.getCurrentUser(completionHandler)
             }
@@ -177,5 +177,6 @@ extension UDClient {
                 completionHandler(currentUser: nil, error: error)
             }
         }
+        return task
     }
 }

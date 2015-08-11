@@ -15,4 +15,6 @@ public class UDPointAnnotation: MKPointAnnotation {
     
     public var indexPath: NSIndexPath!
     
+    public var isCurrentUserLocation: Bool = false
+    
 }

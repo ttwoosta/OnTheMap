@@ -12,8 +12,6 @@ import MapKit
 
 extension UDLocation {
     
-    
-    
     public func annoCoordinate() -> CLLocationCoordinate2D {
         // create 2D coordinate
         let lat = CLLocationDegrees(latitude.doubleValue)

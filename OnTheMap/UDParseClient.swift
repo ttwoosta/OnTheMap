@@ -12,6 +12,10 @@ public class UDParseClient: BaseClient {
     // shared session
     var session: NSURLSession
     
+    //////////////////////////////////
+    // MARK: Singleton
+    /////////////////////////////////
+    
     public class func sharedInstance() -> UDParseClient {
         struct Singleton {
             static var sharedInstance = UDParseClient()
@@ -24,9 +28,8 @@ public class UDParseClient: BaseClient {
         super.init()
     }
 
-    
     //////////////////////////////////
-    //  API
+    // MARK: API
     /////////////////////////////////
     
     public func taskForPOSTMethod(classes: String, parameters: [String: AnyObject]!, jsonBody: [String: AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask! {
@@ -105,7 +108,7 @@ public class UDParseClient: BaseClient {
     }
     
     //////////////////////////////////
-    // Shared methods
+    // MARK: Shared methods
     /////////////////////////////////
     
     public func taskForRequest(URLRequest: NSMutableURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {

@@ -29,8 +29,19 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
     }
     
     //////////////////////////////////
-    // Override methods
+    // MARK: Override methods
     /////////////////////////////////
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // get current location and update textField to previous entered url
+        let userID = UDAppDelegate.sharedAppDelegate().currentUser?.userID
+        let moc = UDAppDelegate.sharedAppDelegate().managedObjectContext!
+        if let obj = UDLocation.studentLocationForUniqueKey(userID!, inManagedObjectContext: moc) {
+            textFieldURL.text = obj.mediaURLString
+        }
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
@@ -40,14 +51,13 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
         
         // add new place to map view
         mapView.addAnnotation(place.placemark)
-        mapView.selectAnnotation(place.placemark, animated: false)
         
         // focus on url textField
         textFieldURL.becomeFirstResponder()
     }
     
     //////////////////////////////////
-    // MKMapViewDelegate
+    // MARK: MKMapViewDelegate
     /////////////////////////////////
     
     func textFieldDidEndEditing(textField: UITextField) {
@@ -76,7 +86,7 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
     }
     
     //////////////////////////////////
-    // MKMapViewDelegate
+    // MARK: MKMapViewDelegate
     /////////////////////////////////
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -89,7 +99,7 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)!
             pinView.canShowCallout = true
             pinView.animatesDrop = true
-            pinView.pinColor = .Red
+            pinView.pinColor = .Purple
             
             let btn = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
             pinView.rightCalloutAccessoryView = btn
@@ -101,8 +111,12 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
         return pinView
     }
     
+    func mapViewDidFinishLoadingMap(mapView: MKMapView!) {
+        mapView.selectAnnotation(place.placemark, animated: true)
+    }
+    
     //////////////////////////////////
-    // Post action
+    // MARK: Post action
     /////////////////////////////////
     
     @IBAction func postAction(sender: AnyObject) {
@@ -110,17 +124,34 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
         // get current user information
         let currentUser = UDAppDelegate.sharedAppDelegate().currentUser
         
+        // managed object context
+        let moc = UDAppDelegate.sharedAppDelegate().managedObjectContext
+        
         // initial post information
         let postInfo = currentUser?.createPostInfoFor(place, URL: textFieldURL.text)
         println(postInfo)
         
-        // post information using Parse API
+        let userID = currentUser?.userID
         
-        
-        
-        // completion with no error
-        self.dismissViewControllerAnimated(true) {
-            NSNotificationCenter.defaultCenter().postNotificationName(UDLocationDidPostNotification, object: postInfo)
+        UDParseClient.postOrUpdateStudentLocation(userID!, postBody: postInfo!) {[weak self] result, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error != nil {
+                    let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
+                        delegate: nil, cancelButtonTitle: "OK")
+                    alert.show()
+                }
+                else { // post completed with no error
+                    
+                    // dismiss view controller
+                    self?.dismissViewControllerAnimated(true) {
+                        
+                        // create or update current location
+                        UDLocation.createOrUpdateStudentLocation(userID!,
+                            decodeDict: result as! [String: AnyObject],
+                            inManagedObjectContext: moc!)
+                    }
+                }
+            }
         }
     }
 }

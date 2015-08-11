@@ -25,8 +25,9 @@
 		06B075EB1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075EA1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift */; };
 		06B075ED1B77B7EC00CDCBCE /* UDLocationSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075EC1B77B7EC00CDCBCE /* UDLocationSearchVC.swift */; };
 		06B075EF1B77B81000CDCBCE /* UDLocationPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075EE1B77B81000CDCBCE /* UDLocationPostVC.swift */; };
-		06B075F11B77D58100CDCBCE /* UDPlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075F01B77D58100CDCBCE /* UDPlaceAnnotation.swift */; };
 		06B075F51B77E58B00CDCBCE /* UDCurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075F41B77E58B00CDCBCE /* UDCurrentUser.swift */; };
+		06B075F71B797CF800CDCBCE /* UDLocation+Convience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075F61B797CF800CDCBCE /* UDLocation+Convience.swift */; };
+		06B075F91B797D4F00CDCBCE /* UDLocation+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B075F81B797D4F00CDCBCE /* UDLocation+Constants.swift */; };
 		06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */; };
 		06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCABF1B71978D00ED6895 /* FirstViewController.swift */; };
 		06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCAC11B71978D00ED6895 /* SecondViewController.swift */; };
@@ -71,8 +72,9 @@
 		06B075EA1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKLocalSearch+StudentLocation.swift"; sourceTree = "<group>"; };
 		06B075EC1B77B7EC00CDCBCE /* UDLocationSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLocationSearchVC.swift; sourceTree = "<group>"; };
 		06B075EE1B77B81000CDCBCE /* UDLocationPostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDLocationPostVC.swift; sourceTree = "<group>"; };
-		06B075F01B77D58100CDCBCE /* UDPlaceAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPlaceAnnotation.swift; sourceTree = "<group>"; };
 		06B075F41B77E58B00CDCBCE /* UDCurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDCurrentUser.swift; sourceTree = "<group>"; };
+		06B075F61B797CF800CDCBCE /* UDLocation+Convience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDLocation+Convience.swift"; sourceTree = "<group>"; };
+		06B075F81B797D4F00CDCBCE /* UDLocation+Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDLocation+Constants.swift"; sourceTree = "<group>"; };
 		06DBCAB81B71978D00ED6895 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06DBCABC1B71978D00ED6895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06DBCABD1B71978D00ED6895 /* UDAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDAppDelegate.swift; sourceTree = "<group>"; };
@@ -135,9 +137,10 @@
 			isa = PBXGroup;
 			children = (
 				06DBCB151B721BD500ED6895 /* UDLocation.swift */,
+				06B075F81B797D4F00CDCBCE /* UDLocation+Constants.swift */,
 				069EC70D1B744B52008F7A7E /* UDLocation+Annotation.swift */,
+				06B075F61B797CF800CDCBCE /* UDLocation+Convience.swift */,
 				069EC7131B753433008F7A7E /* UDPointAnnotation.swift */,
-				06B075F01B77D58100CDCBCE /* UDPlaceAnnotation.swift */,
 				06DBCB121B7219E100ED6895 /* OnTheMap.xcdatamodeld */,
 			);
 			name = "Student Locations";
@@ -325,6 +328,7 @@
 				06B075E71B76E90300CDCBCE /* UDTabController.swift in Sources */,
 				06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */,
 				06DBCB1E1B7287AC00ED6895 /* UDClient+Constants.swift in Sources */,
+				06B075F91B797D4F00CDCBCE /* UDLocation+Constants.swift in Sources */,
 				069EC7041B742CDD008F7A7E /* BaseClient.swift in Sources */,
 				069EC7141B753433008F7A7E /* UDPointAnnotation.swift in Sources */,
 				06B075EF1B77B81000CDCBCE /* UDLocationPostVC.swift in Sources */,
@@ -332,9 +336,9 @@
 				06DBCABE1B71978D00ED6895 /* UDAppDelegate.swift in Sources */,
 				069EC7081B742E3D008F7A7E /* UDParseClient+Constants.swift in Sources */,
 				069EC6FE1B7401C9008F7A7E /* UDLoginVC.swift in Sources */,
-				06B075F11B77D58100CDCBCE /* UDPlaceAnnotation.swift in Sources */,
 				06DBCB1A1B72860500ED6895 /* UDClient.swift in Sources */,
 				069EC70E1B744B52008F7A7E /* UDLocation+Annotation.swift in Sources */,
+				06B075F71B797CF800CDCBCE /* UDLocation+Convience.swift in Sources */,
 				06DBCB161B721BD500ED6895 /* UDLocation.swift in Sources */,
 				06DBCAC01B71978D00ED6895 /* FirstViewController.swift in Sources */,
 			);
