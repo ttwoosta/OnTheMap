@@ -97,7 +97,7 @@ today?</string>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBarView" destination="DsF-jK-nLO" id="jWE-yG-OS7"/>
-                        <segue destination="EIl-XL-tUN" kind="show" id="xik-La-ftq"/>
+                        <segue destination="EIl-XL-tUN" kind="show" identifier="showPostVC" id="xik-La-ftq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="olT-gG-VnN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -233,39 +233,6 @@ today?</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XVy-ap-dAs" userLabel="ViewSpinner">
-                                <rect key="frame" x="178" y="237" width="244" height="127"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-bw-JNf">
-                                        <rect key="frame" x="104" y="16" width="37" height="37"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="37" id="YLE-qh-ZiK"/>
-                                            <constraint firstAttribute="width" constant="37" id="vrG-ho-fIi"/>
-                                        </constraints>
-                                    </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q8H-fD-yPf" customClass="BorderedButton" customModule="OnTheMap" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="84" width="204" height="30"/>
-                                        <color key="backgroundColor" red="1" green="0.27864298459999998" blue="0.013370886300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelAction:" destination="ssp-9h-o6V" eventType="touchUpInside" id="CCr-fy-Ghu"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="q8H-fD-yPf" secondAttribute="bottom" constant="13" id="4Js-Eg-xqj"/>
-                                    <constraint firstAttribute="centerX" secondItem="gyy-bw-JNf" secondAttribute="centerX" id="YIW-Zh-h2m"/>
-                                    <constraint firstAttribute="trailing" secondItem="q8H-fD-yPf" secondAttribute="trailing" constant="20" id="eOg-cL-IfL"/>
-                                    <constraint firstItem="q8H-fD-yPf" firstAttribute="leading" secondItem="XVy-ap-dAs" secondAttribute="leading" constant="20" id="fFP-qS-iss"/>
-                                    <constraint firstAttribute="height" constant="127" id="mmS-dG-yjD"/>
-                                    <constraint firstItem="gyy-bw-JNf" firstAttribute="top" secondItem="XVy-ap-dAs" secondAttribute="top" constant="16" id="pxq-Hp-kML"/>
-                                    <constraint firstItem="q8H-fD-yPf" firstAttribute="top" secondItem="gyy-bw-JNf" secondAttribute="bottom" constant="31" id="shh-Aa-jga"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uVG-jp-vaZ" userLabel="ViewMain">
                                 <rect key="frame" x="178" y="164" width="244" height="271"/>
                                 <subviews>
@@ -275,7 +242,10 @@ today?</string>
                                             <constraint firstAttribute="height" constant="30" id="Pns-1v-TOH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ssp-9h-o6V" id="hJK-pM-FwW"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="X6q-7t-HQp">
                                         <rect key="frame" x="20" y="64" width="204" height="30"/>
@@ -284,8 +254,11 @@ today?</string>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ssp-9h-o6V" id="PkX-44-3aq"/>
+                                        </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IN3-9A-EsG" customClass="BorderedButton" customModule="OnTheMap" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IN3-9A-EsG">
                                         <rect key="frame" x="20" y="108" width="204" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.27864298461737669" blue="0.013370886300654417" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -345,6 +318,39 @@ today?</string>
                                     <constraint firstAttribute="bottom" secondItem="IN3-9A-EsG" secondAttribute="bottom" constant="133" id="yGu-VR-9OG"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XVy-ap-dAs" userLabel="ViewSpinner">
+                                <rect key="frame" x="178" y="237" width="244" height="127"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-bw-JNf">
+                                        <rect key="frame" x="104" y="16" width="37" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="YLE-qh-ZiK"/>
+                                            <constraint firstAttribute="width" constant="37" id="vrG-ho-fIi"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q8H-fD-yPf">
+                                        <rect key="frame" x="20" y="84" width="204" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.27864298459999998" blue="0.013370886300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelAction:" destination="ssp-9h-o6V" eventType="touchUpInside" id="CCr-fy-Ghu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="q8H-fD-yPf" secondAttribute="bottom" constant="13" id="4Js-Eg-xqj"/>
+                                    <constraint firstAttribute="centerX" secondItem="gyy-bw-JNf" secondAttribute="centerX" id="YIW-Zh-h2m"/>
+                                    <constraint firstAttribute="trailing" secondItem="q8H-fD-yPf" secondAttribute="trailing" constant="20" id="eOg-cL-IfL"/>
+                                    <constraint firstItem="q8H-fD-yPf" firstAttribute="leading" secondItem="XVy-ap-dAs" secondAttribute="leading" constant="20" id="fFP-qS-iss"/>
+                                    <constraint firstAttribute="height" constant="127" id="mmS-dG-yjD"/>
+                                    <constraint firstItem="gyy-bw-JNf" firstAttribute="top" secondItem="XVy-ap-dAs" secondAttribute="top" constant="16" id="pxq-Hp-kML"/>
+                                    <constraint firstItem="q8H-fD-yPf" firstAttribute="top" secondItem="gyy-bw-JNf" secondAttribute="bottom" constant="31" id="shh-Aa-jga"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCb-mI-0Qf">
                                 <rect key="frame" x="166" y="106" width="269" height="50"/>
                                 <constraints>
@@ -396,7 +402,7 @@ today?</string>
                                 <action selector="signOutAction:" destination="49e-Tb-3d3" id="zg2-bw-Jy4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="qsO-lw-wTm">
+                        <barButtonItem key="rightBarButtonItem" id="qsO-lw-wTm">
                             <view key="customView" contentMode="scaleToFill" id="6zR-hw-qlc">
                                 <rect key="frame" x="513" y="5" width="70" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

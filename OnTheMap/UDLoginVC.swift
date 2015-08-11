@@ -76,8 +76,12 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
         // reset ui state
         self.loginState = .Ready
         
+        // user sign in?
+        if let cookie = UDClient.getUdacityTokenCookie() {
+            presentMapViewController()
+        }
         // automatically signin with facebook acc if token exist
-        if let token = FBSDKAccessToken.currentAccessToken() {
+        else if let token = FBSDKAccessToken.currentAccessToken() {
             loginAndPresentMapViewController(token.tokenString)
         }
     }
@@ -139,6 +143,15 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
     }
     
     //////////////////////////////////
+    // MARK: UITextFieldDelegate
+    /////////////////////////////////
+    
+    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    //////////////////////////////////
     // MARK: FBSDKLoginButtonDelegate
     /////////////////////////////////
     
@@ -170,6 +183,7 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
     
     public func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         if let httpError = error {
+            println(error)
             self.lblStatus.text = httpError.localizedDescription
             self.loginState = .Ready
         }
