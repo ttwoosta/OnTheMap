@@ -85,6 +85,12 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
     //////////////////////////////////
     // MARK: Button actions
     /////////////////////////////////
+    
+    @IBAction func signupAction(sender: AnyObject) {
+        let URL = NSURL(string: "https://www.udacity.com/account/auth#!/signin")
+        let app = UIApplication.sharedApplication()
+        app.openURL(URL!)
+    }
 
     @IBAction func loginWithUserAndPasswordAction(sender: AnyObject) {
         
