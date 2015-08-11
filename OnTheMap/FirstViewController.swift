@@ -80,6 +80,7 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                     anno.coordinate = loc.annoCoordinate()
                     anno.title = loc.annoTitle()
                     anno.subtitle = loc.annoSubtitle()
+                    anno.indexPath = newIndexPath
                     
                     // animated select new location
                     mapView.selectAnnotation(anno, animated: true)
