@@ -44,8 +44,10 @@ extension MKLocalSearch {
         
         localSearch.startWithCompletionHandler() { response, error in
             var mapItems: [MKMapItem]!
-            if let items = response.mapItems as? [MKMapItem] {
-                mapItems = items
+            if error == nil && response.mapItems.count > 0 {
+                if let items = response.mapItems as? [MKMapItem] {
+                    mapItems = items
+                }
             }
             
             completionHandler(mapItems: mapItems, error: error)
