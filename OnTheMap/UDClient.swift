@@ -89,7 +89,7 @@ public class UDClient: BaseClient {
         let task = session.dataTaskWithRequest(URLRequest) {data, response, downloadError in
             
             var newData: NSData!
-            if data != nil {
+            if data != nil && data.length > 5 {
                 newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
             }
             
