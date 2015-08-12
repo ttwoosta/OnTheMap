@@ -29,6 +29,8 @@ extension UDClient {
         static public let Username: String = "username"
         static public let Password: String = "password"
         
+        static public let Udacity: String = "udacity"
+        
         static public let FacebookLogin: String = "facebook_mobile"
         static public let FacebookAccessToken: String = "access_token"
     }

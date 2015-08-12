@@ -17,7 +17,7 @@ extension UDClient {
     
     public class func login(userName: String, password: String, completionHandler: (sessionId: String!, error: NSError?) -> Void) -> NSURLSessionTask {
         
-        let postBody = [JSONBodyKeys.Username: userName, JSONBodyKeys.Password: password]
+        let postBody = [JSONBodyKeys.Udacity: [JSONBodyKeys.Username: userName, JSONBodyKeys.Password: password]]
         
         let task = sharedInstance().taskForPOSTMethod(Methods.Session, parameters: nil, jsonBody: postBody) { result, error in
             var sessionId: String!

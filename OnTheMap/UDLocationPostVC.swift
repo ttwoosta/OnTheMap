@@ -9,8 +9,6 @@
 import UIKit
 import MapKit
 
-let UDLocationDidPostNotification = "UDLocationDidPostNotification"
-
 class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate {
     
     var place: MKMapItem!
