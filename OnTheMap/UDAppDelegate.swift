@@ -27,6 +27,7 @@ public class UDAppDelegate: UIResponder, UIApplicationDelegate {
     //////////////////////////////////
     // override methods
     /////////////////////////////////
+    
     public func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
@@ -69,7 +70,7 @@ public class UDAppDelegate: UIResponder, UIApplicationDelegate {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.tutong.CoreData" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1] as! NSURL
-        }()
+    }()
     
     public lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
@@ -96,7 +97,7 @@ public class UDAppDelegate: UIResponder, UIApplicationDelegate {
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             
-            
+            // delete existing coredate store file
             NSFileManager.defaultManager().removeItemAtURL(url, error: nil)
             return self.persistentStoreCoordinator!
         }

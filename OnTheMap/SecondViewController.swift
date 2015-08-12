@@ -22,7 +22,6 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
         
         // initializes fetch controller
         setupFetchedResultsController()
-        
     }
     
     //////////////////////////////////
@@ -120,15 +119,21 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
     /////////////////////////////////
     
     func setupFetchedResultsController() {
-        let fetchRequest = NSFetchRequest(entityName: "UDLocation")
-        fetchRequest.predicate = NSPredicate(value: true)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
         
+        // create fetch request for UDLocation objects
+        // sort by date updated
+        let fetchRequest = NSFetchRequest(entityName: UDLocation.kUDLocation)
+        fetchRequest.predicate = NSPredicate(value: true)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: UDLocation.JSONKeys.updatedAt, ascending: false)]
+        
+        // initialize fetched result controller
         frController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         
+        // listen to frc event
         frController.delegate = self
-    
+        
+        // start fetching object
         frController.performFetch(nil)
     }
 }
