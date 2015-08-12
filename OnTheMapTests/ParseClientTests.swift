@@ -165,7 +165,7 @@ class ParseClientTests: XCTestCase {
             
         let expectation = self.expectationWithDescription(nil)
         var resultCount = 0
-        UDParseClient.recurQueryStudentLocations(parameters) { result, error in
+        UDParseClient.recurQueryStudentLocations(parameters) { result, finished, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if let queryResult = result as? [AnyObject] {
                     resultCount += queryResult.count

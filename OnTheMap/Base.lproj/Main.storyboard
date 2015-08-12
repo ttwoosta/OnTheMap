@@ -137,14 +137,19 @@ today?</string>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fK9-TK-qUF">
+                                        <rect key="frame" x="282" y="54" width="37" height="37"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1137592425" green="0.26875028020000002" blue="0.53535353539999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Rku-Nt-FV2" secondAttribute="centerX" constant="-0.5" id="9Mp-1E-K1U"/>
                                     <constraint firstItem="X0d-v2-0Eh" firstAttribute="leading" secondItem="2Nh-nX-BUI" secondAttribute="leading" constant="8" id="ADh-CC-WPv"/>
                                     <constraint firstAttribute="centerY" secondItem="X0d-v2-0Eh" secondAttribute="centerY" id="IrI-pc-VaY"/>
+                                    <constraint firstAttribute="centerY" secondItem="fK9-TK-qUF" secondAttribute="centerY" id="LhG-ET-cjG"/>
                                     <constraint firstAttribute="height" constant="146" id="Loi-ZF-nNZ"/>
                                     <constraint firstAttribute="trailing" secondItem="X0d-v2-0Eh" secondAttribute="trailing" constant="8" id="W6C-EN-dYN"/>
+                                    <constraint firstAttribute="centerX" secondItem="fK9-TK-qUF" secondAttribute="centerX" id="eqf-LY-e4Z"/>
                                     <constraint firstItem="Rku-Nt-FV2" firstAttribute="top" secondItem="X0d-v2-0Eh" secondAttribute="bottom" constant="22" id="s9r-kb-J9u"/>
                                 </constraints>
                             </view>
@@ -177,6 +182,7 @@ today?</string>
                         <outlet property="barItemPost" destination="cM3-Am-CfT" id="ZNt-m8-1RD"/>
                         <outlet property="lblWarning" destination="Rku-Nt-FV2" id="BBS-Mh-hHO"/>
                         <outlet property="mapView" destination="hvD-5q-K0S" id="cfK-xB-1N3"/>
+                        <outlet property="spinner" destination="fK9-TK-qUF" id="nUa-oZ-eui"/>
                         <outlet property="textFieldURL" destination="X0d-v2-0Eh" id="Gkc-gb-2aX"/>
                     </connections>
                 </viewController>
@@ -421,6 +427,9 @@ today?</string>
                                             <action selector="refreshAction:" destination="49e-Tb-3d3" eventType="touchUpInside" id="QB8-NW-HVm"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aSi-z0-sX1">
+                                        <rect key="frame" x="25" y="8" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                             </view>
                         </barButtonItem>
@@ -432,6 +441,10 @@ today?</string>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <outlet property="barItemSignOut" destination="Rwk-YJ-OAj" id="nCw-bY-soE"/>
+                        <outlet property="btnAdd" destination="oay-gX-C5T" id="BjL-kd-Z8B"/>
+                        <outlet property="btnRefresh" destination="o6q-oC-kgy" id="Gvd-BT-bpB"/>
+                        <outlet property="spinner" destination="aSi-z0-sX1" id="gMt-h5-G7T"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="axQ-Gb-zba"/>
                         <segue destination="BV0-RI-NKk" kind="relationship" relationship="viewControllers" id="DZS-9t-QPS"/>
                     </connections>

@@ -20,6 +20,30 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
     let kAlertTagSignOut = 0
     let kAlertTagUpdateLocation = 1
     
+    @IBOutlet weak var barItemSignOut: UIBarButtonItem!
+    @IBOutlet weak var btnAdd: UIButton!
+    @IBOutlet weak var btnRefresh: UIButton!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+
+    var activityCount = UDActivityCount()
+    var isLoading: Bool = false {
+        didSet {
+            if activityCount.startOrStopActivity(isLoading) {
+                return
+            }
+            
+            barItemSignOut.enabled = !isLoading
+            btnAdd.alpha = CGFloat(!isLoading)
+            btnRefresh.alpha = CGFloat(!isLoading)
+            if isLoading {
+                spinner.startAnimating()
+            }
+            else {
+                spinner.stopAnimating()
+            }
+        }
+    }
+    
     //////////////////////////////////
     // MARK: Override methods
     /////////////////////////////////
@@ -35,6 +59,9 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
+        
+        // reset ui state
+        self.isLoading = false
     }
     
     //////////////////////////////////
@@ -66,6 +93,9 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
     
     @IBAction func refreshAction(sender: AnyObject) {
         
+        // hide buttons and show spinner
+        self.isLoading = true
+        
         // initial fetch request
         let fetchRequest = NSFetchRequest(entityName: UDLocation.kUDLocation)
         fetchRequest.predicate = NSPredicate(value: true)
@@ -82,7 +112,7 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
         // populate locations
         let parameters: [String: AnyObject] = [UDParseClient.ParametersKey.Order: "-\(UDParseClient.ParametersValue.updatedAt)"]
         
-        UDParseClient.recurQueryStudentLocations(parameters) {[weak self] result, error in
+        UDParseClient.recurQueryStudentLocations(parameters) {[weak self] result, finished, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
@@ -93,6 +123,11 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
                     if let results = result as? [[String: AnyObject]] {
                         UDLocation.locationsFromResults(results, moc: context)
                     }
+                }
+                
+                // reset ui state
+                if finished {
+                    self?.isLoading = false
                 }
             }
             
@@ -123,11 +158,28 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
     /////////////////////////////////
     
     func presentPostingLocationVC() {
+        // hide buttons and show spinner
+        self.isLoading = true
+        
         let vc = storyboard?.instantiateViewControllerWithIdentifier("LocationPostNavigation") as! UIViewController
+        
+        // subcribe to posting location vc dismiss event
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "locationPostDismissed:", name: UDLocationPostDismissedNotification, object: vc)
+        
         presentViewController(vc, animated: true, completion: nil)
     }
     
+    func locationPostDismissed(notitication: NSNotification) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UDLocationPostDismissedNotification, object: notitication.object)
+        
+        // reset ui state
+        self.isLoading = false
+    }
+    
     func signOut() {
+        
+        // disable signout button and show spinner
+        self.isLoading = true
         
         UDClient.logout() { [unowned self] result, error in
             dispatch_async(dispatch_get_main_queue()) {
@@ -141,6 +193,9 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
                         delegate: nil, cancelButtonTitle: "OK")
                     alert.show()
                 }
+                
+                // reset ui state
+                self.isLoading = false
             }
         }
     }

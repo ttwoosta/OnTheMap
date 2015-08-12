@@ -10,6 +10,8 @@
 import UIKit
 import MapKit
 
+let UDLocationPostDismissedNotification = "UDLocationPostDismissedNotification"
+
 class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet var searchBarView: UISearchBar!
@@ -44,8 +46,8 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     /////////////////////////////////
     
     @IBAction func cancelAction(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true) {
-            
+        dismissViewControllerAnimated(true) {[weak self] in
+            NSNotificationCenter.defaultCenter().postNotificationName(UDLocationPostDismissedNotification, object: self?.navigationController)
         }
     }
     

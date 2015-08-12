@@ -13,12 +13,16 @@ class SecondViewController: UITableViewController, NSFetchedResultsControllerDel
 
     var moc: NSManagedObjectContext!
     var frController: NSFetchedResultsController!
+    var currentUserID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // get the moc
         let appDelegate = UIApplication.sharedApplication().delegate as! UDAppDelegate
         moc = appDelegate.managedObjectContext!
+        
+        // current user id 
+        currentUserID = appDelegate.currentUser?.userID
         
         // initializes fetch controller
         setupFetchedResultsController()

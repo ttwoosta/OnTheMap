@@ -18,11 +18,32 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
     @IBOutlet weak var textFieldURL: UITextField!
     @IBOutlet weak var barItemPost: UIBarButtonItem!
     @IBOutlet weak var lblWarning: UILabel!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var isURLValid: Bool = false {
         didSet {
             barItemPost.enabled = isURLValid
             lblWarning.hidden = isURLValid
+        }
+    }
+    
+    var activityCount = UDActivityCount()
+    var isPosting: Bool = false {
+        didSet {
+            // should stop spinner ?
+            if activityCount.startOrStopActivity(isPosting) {
+                return
+            }
+            
+            textFieldURL.alpha = CGFloat(!isPosting)
+            barItemPost.enabled = !isPosting
+            lblWarning.alpha = CGFloat(!isPosting)
+            if isPosting {
+                spinner.startAnimating()
+            }
+            else {
+                spinner.stopAnimating()
+            }
         }
     }
     
@@ -32,6 +53,9 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // ui default state
+        self.isPosting = false
         
         // get current location and update textField to previous entered url
         let userID = UDAppDelegate.sharedAppDelegate().currentUser?.userID
@@ -109,8 +133,16 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
         return pinView
     }
     
+    func mapViewWillStartLoadingMap(mapView: MKMapView!) {
+        self.isPosting = true
+    }
+    
+    func mapViewDidFailLoadingMap(mapView: MKMapView!, withError error: NSError!) {
+        self.isPosting = false
+    }
+    
     func mapViewDidFinishLoadingMap(mapView: MKMapView!) {
-        mapView.selectAnnotation(place.placemark, animated: true)
+        self.isPosting = false
     }
     
     //////////////////////////////////
@@ -129,7 +161,11 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
         let postInfo = currentUser?.createPostInfoFor(place, URL: textFieldURL.text)
         println(postInfo)
         
+        // get current user id
         let userID = currentUser?.userID
+        
+        // show spinner and hide other controls
+        self.isPosting = true
         
         UDParseClient.postOrUpdateStudentLocation(userID!, postBody: postInfo!) {[weak self] result, error in
             dispatch_async(dispatch_get_main_queue()) {
@@ -137,6 +173,7 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
                     let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
                         delegate: nil, cancelButtonTitle: "OK")
                     alert.show()
+                    self?.isPosting = false
                 }
                 else { // post completed with no error
                     
@@ -144,9 +181,12 @@ class UDLocationPostVC: UIViewController, MKMapViewDelegate, UITextFieldDelegate
                     self?.dismissViewControllerAnimated(true) {
                         
                         // create or update current location
-                        UDLocation.createOrUpdateStudentLocation(userID!,
+                        let loc = UDLocation.createOrUpdateStudentLocation(userID!,
                             decodeDict: result as! [String: AnyObject],
                             inManagedObjectContext: moc!)
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName(UDLocationPostDismissedNotification, object: self?.navigationController)
+                        self?.isPosting = false
                     }
                 }
             }

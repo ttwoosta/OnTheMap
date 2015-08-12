@@ -33,11 +33,12 @@ extension UDParseClient {
         return task
     }
     
-    public class func recurQueryStudentLocations(parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionTask {
+    public class func recurQueryStudentLocations(parameters: [String: AnyObject]!, completionHandler: (result: AnyObject!, finished: Bool, error: NSError?) -> Void) -> NSURLSessionTask {
         
         var queryLimit = 50
         var querySkip = 0
         var mutableParams = parameters
+        var finished = false
         
         // query limit
         if let limit = parameters[ParametersKey.Limit] as? Int {
@@ -59,9 +60,12 @@ extension UDParseClient {
                     mutableParams[ParametersKey.Skip] = querySkip
                     self.recurQueryStudentLocations(mutableParams, completionHandler: completionHandler)
                 }
+                else {
+                    finished = true
+                }
             }
             
-            completionHandler(result: result, error: error)
+            completionHandler(result: result, finished: finished, error: error)
         }
         
         return task

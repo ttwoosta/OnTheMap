@@ -17,9 +17,11 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
     var frController: NSFetchedResultsController!
     
     var currentUserID: String?
+    weak var tabBarCtl: UDTabController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // get the moc
         let appDelegate = UIApplication.sharedApplication().delegate as! UDAppDelegate
         moc = appDelegate.managedObjectContext!
@@ -30,23 +32,31 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         // initializes fetch controller
         setupFetchedResultsController()
         
+        // tabBar controller
+        tabBarCtl = tabBarController as? UDTabController
+        tabBarCtl?.isLoading = true
+        
         // populate locations
         let parameters: [String: AnyObject] = [UDParseClient.ParametersKey.Order: "-\(UDParseClient.ParametersValue.updatedAt)"]
         
-        UDParseClient.recurQueryStudentLocations(parameters) {[weak self] result, error in
+        UDParseClient.recurQueryStudentLocations(parameters) {[weak self] result, finished, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
                     let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
                         delegate: nil, cancelButtonTitle: "OK")
                     alert.show()
+                    self?.tabBarCtl?.isLoading = false
                 }
                 else if let context = self?.moc {
                     if let results = result as? [[String: AnyObject]] {
                         UDLocation.locationsFromResults(results, moc: context)
                     }
                 }
+                
+                if finished {
+                    self?.tabBarCtl?.isLoading = false
+                }
             }
-        
         }
     }
     
@@ -93,8 +103,6 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                 println(loc)
             }
         }
-        
-        
     }
     
     //////////////////////////////////
@@ -154,8 +162,20 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
             }
         }
     }
-
     
+    func mapViewWillStartLoadingMap(mapView: MKMapView!) {
+        tabBarCtl?.isLoading = true
+    }
+    
+    func mapViewDidFinishLoadingMap(mapView: MKMapView!) {
+        tabBarCtl?.isLoading = false
+    }
+    
+    func mapViewDidFailLoadingMap(mapView: MKMapView!, withError error: NSError!) {
+        println(error)
+        tabBarCtl?.isLoading = false
+    }
+        
     //////////////////////////////////
     // MARK: Convenience
     /////////////////////////////////

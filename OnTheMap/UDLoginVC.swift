@@ -106,6 +106,10 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
             return
         }
         
+        // hide keyboard
+        txtFieldUsername.resignFirstResponder()
+        txtFieldPassword.resignFirstResponder()
+        
         // hide login buttons and show spinner
         UIView.animateWithDuration(0.5) {
             self.loginState = .LoggingIn
