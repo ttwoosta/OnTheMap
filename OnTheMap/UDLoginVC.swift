@@ -114,14 +114,13 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
         // login with username and password
         loginTask = UDClient.loginAndGetCurrentUser(txtFieldUsername.text, password: txtFieldPassword.text) {[weak self] currentUser, error in
             dispatch_async(dispatch_get_main_queue()) {
-                if let httpError = error {
-                    self?.lblStatus.text = httpError.localizedDescription
-                    self?.loginState = .Ready
+                if let user = currentUser {
+                    // save current user and modally present mapVC
+                    UDAppDelegate.sharedAppDelegate().currentUser = user
+                    self?.presentMapViewController()
                 }
                 else {
-                    // save current user and modally present mapVC
-                    UDAppDelegate.sharedAppDelegate().currentUser = currentUser
-                    self?.presentMapViewController()
+                    self?.handleError(error!)
                 }
             }
         }
@@ -152,7 +151,7 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
     }
     
     //////////////////////////////////
-    // MARK: FBSDKLoginButtonDelegate
+    // MARK: Shared methods
     /////////////////////////////////
     
     func loginAndPresentMapViewController(tokenString: String) {
@@ -177,26 +176,57 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
         performSegueWithIdentifier("mapViewController", sender: self)
     }
     
+    func handleError(error: NSError?) {
+        var title: String = ""
+        var desc: String = ""
+        
+        if let httpError = error  {
+            println(httpError)
+            if httpError.code == 403 {
+                title = httpError.localizedDescription
+            }
+            else {
+                title = "Communications error"
+                desc = httpError.localizedDescription
+            }
+        }
+        else {
+            title = "Unknow error occurs."
+        }
+        
+        // reset ui state
+        self.loginState = .Ready
+        
+        // set text for label
+        lblStatus.text = title
+        
+        // notify user about the error
+        let alert = UIAlertView(title: title, message: desc,
+            delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+    }
+    
     //////////////////////////////////
     // MARK: FBSDKLoginButtonDelegate
     /////////////////////////////////
     
     public func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        if let httpError = error {
-            println(error)
-            self.lblStatus.text = httpError.localizedDescription
-            self.loginState = .Ready
-        }
-        else if result.isCancelled {
-            lblStatus.text = "Login is cancelled."
-            self.loginState = .Ready
-        }
-        else if let tokenString = result.token.tokenString {
+        
+        // login successfully
+        if let tokenString = result.token.tokenString {
             loginAndPresentMapViewController(tokenString)
+            return
+        }
+        
+        // reset ui state
+        self.loginState = .Ready
+        
+        // user cancel login
+        if result.isCancelled {
+            lblStatus.text = "Login is cancelled."
         }
         else {
-            lblStatus.text = "Unknow error occurs."
-            self.loginState = .Ready
+            handleError(error)
         }
     }
     
