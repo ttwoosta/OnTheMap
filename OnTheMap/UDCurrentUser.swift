@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-public class UDCurrentUser: Printable {
+public struct UDCurrentUser: Printable {
     
     public var firstName: String!
     public var lastName: String!

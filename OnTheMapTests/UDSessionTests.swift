@@ -103,7 +103,10 @@ class UDSessionTests: XCTestCase {
         let task = UDClient.getCurrentUser() { user, error in
             println(user)
             
-            XCTAssertNotNil(user)
+            XCTAssertNotNil(user.firstName)
+            XCTAssertNotNil(user.lastName)
+            XCTAssertNotNil(user.userID)
+            
             XCTAssertNil(error)
             
             expectation.fulfill()
