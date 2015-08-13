@@ -51,14 +51,19 @@ today?</string>
                                         <outlet property="delegate" destination="SyQ-Go-sSR" id="rQQ-52-5TJ"/>
                                     </connections>
                                 </searchBar>
+                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="duE-wc-zMW">
+                                    <rect key="frame" x="282" y="75" width="37" height="37"/>
+                                </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstAttribute="centerY" secondItem="duE-wc-zMW" secondAttribute="centerY" id="1NW-oe-Ohq"/>
                                 <constraint firstItem="DsF-jK-nLO" firstAttribute="top" secondItem="OIh-tT-QvE" secondAttribute="bottom" constant="14" id="It5-Jg-WTk"/>
                                 <constraint firstAttribute="centerX" secondItem="OIh-tT-QvE" secondAttribute="centerX" id="YMv-Em-hpZ"/>
                                 <constraint firstItem="DsF-jK-nLO" firstAttribute="leading" secondItem="oor-Xg-qFy" secondAttribute="leading" id="Z4I-f3-9hW"/>
                                 <constraint firstAttribute="bottom" secondItem="DsF-jK-nLO" secondAttribute="bottom" id="aIc-1h-Wzr"/>
                                 <constraint firstAttribute="trailing" secondItem="DsF-jK-nLO" secondAttribute="trailing" id="bYn-kx-cY0"/>
+                                <constraint firstAttribute="centerX" secondItem="duE-wc-zMW" secondAttribute="centerX" id="qze-FQ-tUP"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -96,7 +101,9 @@ today?</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="lblHeader" destination="OIh-tT-QvE" id="uMZ-n7-9ri"/>
                         <outlet property="searchBarView" destination="DsF-jK-nLO" id="jWE-yG-OS7"/>
+                        <outlet property="spinner" destination="duE-wc-zMW" id="Zlq-Qt-Twn"/>
                         <segue destination="EIl-XL-tUN" kind="show" identifier="showPostVC" id="xik-La-ftq"/>
                     </connections>
                 </tableViewController>

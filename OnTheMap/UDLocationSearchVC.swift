@@ -15,9 +15,23 @@ let UDLocationPostDismissedNotification = "UDLocationPostDismissedNotification"
 class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet var searchBarView: UISearchBar!
+    @IBOutlet var spinner: UIActivityIndicatorView!
+    @IBOutlet var lblHeader: UILabel!
     
     var geocoder: CLGeocoder? = nil
     var places: [MKMapItem]!
+    
+    var isSearching: Bool = false {
+        didSet {
+            lblHeader.alpha = CGFloat(!isSearching)
+            if isSearching {
+                spinner.startAnimating()
+            }
+            else {
+                spinner.stopAnimating()
+            }
+        }
+    }
     
     //////////////////////////////////
     // MARK: Override methods
@@ -88,8 +102,19 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
         // cancel previous search if any
         geocoder?.cancelGeocode()
         
+        // show spinner
+        UIView.animateWithDuration(0.3) {
+            self.isSearching = true
+        }
+        
         // start search places with keyword
         geocoder = CLGeocoder.search(searchString) {[weak self] mapItems, error in
+            
+            // hide spinner
+            UIView.animateWithDuration(0.3) {
+                self?.isSearching = false
+            }
+            
             if error != nil {
                 let alert = UIAlertView(title: "Could not find any places", message: error?.localizedDescription,
                     delegate: nil, cancelButtonTitle: "OK")
