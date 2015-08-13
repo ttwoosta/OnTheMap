@@ -88,10 +88,6 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
         // cancel previous search if any
         geocoder?.cancelGeocode()
         
-        // get user location
-        let appDelegate = UIApplication.sharedApplication().delegate as? UDAppDelegate
-        let userLocation = appDelegate?.userLocation
-        
         // start search places with keyword
         geocoder = CLGeocoder.search(searchString) {[weak self] mapItems, error in
             if error != nil {

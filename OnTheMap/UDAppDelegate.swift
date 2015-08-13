@@ -21,7 +21,7 @@ public class UDAppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.sharedApplication().delegate as! UDAppDelegate
     }
     
-    public var userLocation: CLLocationCoordinate2D!
+    // contains username and userID
     public var currentUser: UDCurrentUser? = nil
 
     //////////////////////////////////
