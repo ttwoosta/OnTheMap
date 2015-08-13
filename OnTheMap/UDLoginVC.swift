@@ -217,9 +217,11 @@ public class UDLoginVC: UIViewController, FBSDKLoginButtonDelegate, UITextFieldD
     public func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
         // login successfully
-        if let tokenString = result.token.tokenString {
-            loginAndPresentMapViewController(tokenString)
-            return
+        if let token = result.token {
+            if let tokenString = token.tokenString {
+                loginAndPresentMapViewController(tokenString)
+                return
+            }
         }
         
         // reset ui state

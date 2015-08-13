@@ -16,7 +16,7 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet var searchBarView: UISearchBar!
     
-    var localSearch: MKLocalSearch!
+    var geocoder: CLGeocoder? = nil
     var places: [MKMapItem]!
     
     //////////////////////////////////
@@ -71,27 +71,7 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
         // hide keyboard
         searchBar.resignFirstResponder()
         
-        // check to see if Location Services is enabled, there are two state possibilities:
-        // 1) disabled for entire device, 
-        // 2) disabled just for this app
-        var causeStr: String!
-        
-        if CLLocationManager.locationServicesEnabled() == false {
-            causeStr = "device"
-        }
-        else if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied {
-            causeStr = "app"
-        }
-        else {
-            startSearch(searchBar.text)
-        }
-        
-        if causeStr != nil {
-            let alertStr = "You currently have location services disabled for this \(causeStr). Please refer to \"Settings\" app to turn on Location Services."
-            let alert = UIAlertView(title: "Location service is disabled", message: alertStr,
-                delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-        }
+        startSearch(searchBar.text)
         
     }
     
@@ -101,17 +81,19 @@ class UDLocationSearchVC: UITableViewController, UISearchBarDelegate {
     
     func startSearch(searchString: String) {
         
+        // clear previous search result
+        places = nil
+        tableView.reloadData()
+        
         // cancel previous search if any
-        if localSearch != nil && localSearch.searching {
-            localSearch.cancel()
-        }
+        geocoder?.cancelGeocode()
         
         // get user location
         let appDelegate = UIApplication.sharedApplication().delegate as? UDAppDelegate
         let userLocation = appDelegate?.userLocation
         
-        // start search places with keyword and user location
-        localSearch = MKLocalSearch.search(searchString, userLocation: userLocation) {[weak self] mapItems, error in
+        // start search places with keyword
+        geocoder = CLGeocoder.search(searchString) {[weak self] mapItems, error in
             if error != nil {
                 let alert = UIAlertView(title: "Could not find any places", message: error?.localizedDescription,
                     delegate: nil, cancelButtonTitle: "OK")

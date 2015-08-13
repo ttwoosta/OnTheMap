@@ -44,6 +44,7 @@
 		06DBCB1A1B72860500ED6895 /* UDClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB191B72860500ED6895 /* UDClient.swift */; };
 		06DBCB1E1B7287AC00ED6895 /* UDClient+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB1D1B7287AC00ED6895 /* UDClient+Constants.swift */; };
 		06DBCB201B7299EB00ED6895 /* BaseClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DBCB1F1B7299EB00ED6895 /* BaseClientTests.swift */; };
+		06E1F0731B7C17CA007958F1 /* CLGeocoder+Seach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E1F0721B7C17CA007958F1 /* CLGeocoder+Seach.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		06DBCB191B72860500ED6895 /* UDClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDClient.swift; sourceTree = "<group>"; };
 		06DBCB1D1B7287AC00ED6895 /* UDClient+Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UDClient+Constants.swift"; sourceTree = "<group>"; };
 		06DBCB1F1B7299EB00ED6895 /* BaseClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseClientTests.swift; sourceTree = "<group>"; };
+		06E1F0721B7C17CA007958F1 /* CLGeocoder+Seach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLGeocoder+Seach.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				06B075EA1B779E4900CDCBCE /* MKLocalSearch+StudentLocation.swift */,
+				06E1F0721B7C17CA007958F1 /* CLGeocoder+Seach.swift */,
 				069EC7031B742CDD008F7A7E /* BaseClient.swift */,
 				069EC7051B742D61008F7A7E /* UDParseClient.swift */,
 				069EC7071B742E3D008F7A7E /* UDParseClient+Constants.swift */,
@@ -329,6 +332,7 @@
 				06DBCAC21B71978D00ED6895 /* SecondViewController.swift in Sources */,
 				06B075F51B77E58B00CDCBCE /* UDCurrentUser.swift in Sources */,
 				06B075E71B76E90300CDCBCE /* UDTabController.swift in Sources */,
+				06E1F0731B7C17CA007958F1 /* CLGeocoder+Seach.swift in Sources */,
 				06DBCB141B7219E100ED6895 /* OnTheMap.xcdatamodeld in Sources */,
 				06DBCB1E1B7287AC00ED6895 /* UDClient+Constants.swift in Sources */,
 				06B075F91B797D4F00CDCBCE /* UDLocation+Constants.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 import XCTest
 import OnTheMap
 import MapKit
+import AddressBookUI
 
 class MapSearchTests: XCTestCase {
 
@@ -81,6 +82,57 @@ class MapSearchTests: XCTestCase {
                 XCTAssertEqual(mapItem.url.absoluteString!, "http://en.wikipedia.org/wiki/Las_Vegas")
             }
             expectation.fulfill()
+        }
+        
+        self.waitForExpectationsWithTimeout(10, handler: nil)
+    }
+    
+    func test_clgeocoder() {
+        let expectation = self.expectationWithDescription(nil)
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString("Las vegas") { result, error in
+            
+            for placeMark in result as! [CLPlacemark] {
+                println(placeMark.addressDictionary)
+                let add = ABCreateStringWithAddressDictionary(placeMark.addressDictionary, true)
+                println(add)
+                XCTAssertEqual(placeMark.name, "Las Vegas")
+                XCTAssertEqual(placeMark.location.coordinate.latitude, 36.16920200)
+                XCTAssertEqual(placeMark.location.coordinate.longitude, -115.14059700)
+                
+                let pm = MKPlacemark(coordinate: placeMark.location.coordinate, addressDictionary: placeMark.addressDictionary)
+                let mapItem = MKMapItem(placemark: pm)
+                
+                XCTAssertEqual(mapItem.name, "Las Vegas, NV")
+                XCTAssertEqual(mapItem.placemark.title, "Las Vegas, NV, United States")
+                XCTAssertEqual(mapItem.placemark.coordinate.latitude, 36.16920200)
+                XCTAssertEqual(mapItem.placemark.coordinate.longitude, -115.14059700)
+                //XCTAssertEqual(mapItem.url.absoluteString!, "http://en.wikipedia.org/wiki/Las_Vegas")
+            }
+            
+            expectation.fulfill()
+        }
+        self.waitForExpectationsWithTimeout(10, handler: nil)
+    }
+    
+    func test_clgeocoder_search_with_keyword() {
+        let expectation = self.expectationWithDescription(nil)
+        
+        CLGeocoder.search("Las Vegas") { mapItems, error in
+            XCTAssertNotNil(mapItems)
+            XCTAssertNil(error)
+            
+            if let mapItem = mapItems.first {
+                XCTAssertFalse(mapItem.isCurrentLocation)
+                XCTAssertEqual(mapItem.name, "Las Vegas, NV")
+                XCTAssertEqual(mapItem.placemark.title, "Las Vegas, NV, United States")
+                XCTAssertEqual(mapItem.placemark.coordinate.latitude, 36.16920200)
+                XCTAssertEqual(mapItem.placemark.coordinate.longitude, -115.14059700)
+                //XCTAssertEqual(mapItem.url.absoluteString!, "http://en.wikipedia.org/wiki/Las_Vegas")
+            }
+            expectation.fulfill()
+        
         }
         
         self.waitForExpectationsWithTimeout(10, handler: nil)
