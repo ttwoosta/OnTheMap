@@ -11,7 +11,7 @@ import CoreData
 import MapKit
 import FBSDKLoginKit
 
-class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertViewDelegate {
+class UDTabController: UITabBarController, UIAlertViewDelegate {
     
     var locationManager: CLLocationManager!
     var moc: NSManagedObjectContext!
@@ -54,11 +54,6 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
         // get the moc
         let appDelegate = UIApplication.sharedApplication().delegate as! UDAppDelegate
         moc = appDelegate.managedObjectContext!
-        
-        // setup location manager
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
         
         // reset ui state
         self.isLoading = false
@@ -118,6 +113,7 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
                     let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
                         delegate: nil, cancelButtonTitle: "OK")
                     alert.show()
+                    self?.isLoading = false
                 }
                 else if let context = self?.moc {
                     if let results = result as? [[String: AnyObject]] {
@@ -198,22 +194,5 @@ class UDTabController: UITabBarController, CLLocationManagerDelegate, UIAlertVie
                 self.isLoading = false
             }
         }
-    }
-    
-    //////////////////////////////////
-    // MARK: CLLocationManagerDelegate
-    /////////////////////////////////
-    
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
-        
-        // set user location coord
-        let appDelegate = UIApplication.sharedApplication().delegate as! UDAppDelegate
-        appDelegate.userLocation = newLocation.coordinate
-        
-        // stop location manager update
-        // only want one update
-        locationManager.stopUpdatingLocation()
-        locationManager.delegate = nil
-        locationManager = nil
     }
 }
