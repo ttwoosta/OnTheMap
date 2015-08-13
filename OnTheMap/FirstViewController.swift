@@ -42,9 +42,16 @@ class FirstViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         UDParseClient.recurQueryStudentLocations(parameters) {[weak self] result, finished, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if error != nil {
-                    let alert = UIAlertView(title: "Communications error", message: error?.localizedDescription,
-                        delegate: nil, cancelButtonTitle: "OK")
-                    alert.show()
+                    if error?.domain == UDParseClient.ErrorDomain.ClientErrorDomain {
+                        let alert = UIAlertView(title: "Server error", message: error?.localizedDescription,
+                            delegate: nil, cancelButtonTitle: "OK")
+                        alert.show()
+                    }
+                    else {
+                        let alert = UIAlertView(title: "Communication error", message: error?.localizedDescription,
+                            delegate: nil, cancelButtonTitle: "OK")
+                        alert.show()
+                    }
                     self?.tabBarCtl?.isLoading = false
                 }
                 else if let context = self?.moc {
